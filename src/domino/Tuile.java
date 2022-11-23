@@ -36,4 +36,23 @@ public class Tuile {
                 this.joinable(West, other) ||
                 this.joinable(East, other);
     }
+
+    public void spin(boolean droite){
+        for(Cote cote: this.cotes){
+            cote.oriented = droite ? cote.oriented.toRight() : cote.oriented.toLeft();
+        }
+        if(droite){
+            Cote temp = this.cotes[3];
+            this.cotes[3] = this.cotes[2];
+            this.cotes[2] = this.cotes[1];
+            this.cotes[1] = this.cotes[0];
+            this.cotes[0] = temp;
+        } else{
+            Cote temp = this.cotes[0];
+            this.cotes[0] = this.cotes[1];
+            this.cotes[1] = this.cotes[2];
+            this.cotes[2] = this.cotes[3];
+            this.cotes[3] = temp;
+        }
+    }
 }

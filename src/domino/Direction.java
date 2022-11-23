@@ -14,4 +14,20 @@ public enum Direction {
             return East;
         }
     }
+
+    public Direction toRight(){
+        if(this.equals(North)){
+            return East;
+        } else if (this.equals(South)) {
+            return West;
+        } else if (this.equals(East)) {
+            return South;
+        } else {
+            return North;
+        }
+    }
+
+    public Direction toLeft(){
+        return this.toRight().toRight().toRight();
+    }
 }
