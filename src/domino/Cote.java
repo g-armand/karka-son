@@ -3,20 +3,20 @@ import java.util.Random;
 
 
 public class Cote {
-    int[] Case = new int[3];
+    int[] cases = new int[3];
     Direction oriented;
 
 
     public Cote(Direction oriented) {
         Random a = new Random();
         this.oriented = oriented;
-        this.Case[0] = a.nextInt(3);
-        this.Case[1] = a.nextInt(3);
-        this.Case[2] = a.nextInt(3);
+        this.cases[0] = a.nextInt(3);
+        this.cases[1] = a.nextInt(3);
+        this.cases[2] = a.nextInt(3);
     }
 
     public boolean estJoignable(Cote b){
-        return this.Case[0] == b.Case[0] && this.Case[1] == b.Case[1] && this.Case[3] == b.Case[3];
+        return this.cases[0] == b.cases[0] && this.cases[1] == b.cases[1] && this.cases[3] == b.cases[3];
     }
 
 }

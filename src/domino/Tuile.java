@@ -55,4 +55,14 @@ public class Tuile {
             this.cotes[3] = temp;
         }
     }
+
+    //not good because cannot chain multiple Tuile on a same line
+    public String toString(){
+        return "  " + this.cotes[0].cases[1] + " " + this.cotes[0].cases[1] + " " + this.cotes[0].cases[2] + "  \n" +
+                this.cotes[3].cases[0] + "      " + this.cotes[1].cases[0] + "  \n" +
+                this.cotes[3].cases[1] + "      " + this.cotes[1].cases[1] + "  \n" +
+                this.cotes[3].cases[2] + "      " + this.cotes[1].cases[2] + "  \n" +
+                "  " + this.cotes[2].cases[0] + " " + this.cotes[2].cases[1] + " " + this.cotes[2].cases[2] + "  \n";
+
+    }
 }
