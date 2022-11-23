@@ -56,13 +56,23 @@ public class Tuile {
         }
     }
 
+    //might be better, because we could print multiple tuiles that lie on the same line
+    public String getLine(int line){
+        if (line==0){
+            return "  " + this.cotes[0].cases[1] + " " + this.cotes[0].cases[1] + " " + this.cotes[0].cases[2] + "  ";
+        } else if(line==4){
+            return "  " + this.cotes[2].cases[0] + " " + this.cotes[2].cases[1] + " " + this.cotes[2].cases[2] + "  ";
+        }else{
+            return this.cotes[3].cases[line-1] + "      " + this.cotes[1].cases[line-1] + "  ";
+        }
+    }
+
     //not good because cannot chain multiple Tuile on a same line
     public String toString(){
-        return "  " + this.cotes[0].cases[1] + " " + this.cotes[0].cases[1] + " " + this.cotes[0].cases[2] + "  \n" +
-                this.cotes[3].cases[0] + "      " + this.cotes[1].cases[0] + "  \n" +
-                this.cotes[3].cases[1] + "      " + this.cotes[1].cases[1] + "  \n" +
-                this.cotes[3].cases[2] + "      " + this.cotes[1].cases[2] + "  \n" +
-                "  " + this.cotes[2].cases[0] + " " + this.cotes[2].cases[1] + " " + this.cotes[2].cases[2] + "  \n";
-
+        return this.getLine(0) + "\n" +
+                this.getLine(1) + "\n" +
+                this.getLine(2) + "\n" +
+                this.getLine(3) + "\n" +
+                this.getLine(4) + "\n";
     }
 }
