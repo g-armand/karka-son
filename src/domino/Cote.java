@@ -15,8 +15,8 @@ public class Cote {
         this.Case[2] = a.nextInt(3);
     }
 
-    public boolean estJoignable(Cote a, Cote b){
-        return a.Case[0] == b.Case[0] && a.Case[1] == b.Case[1] && a.Case[3] == b.Case[3];
+    public boolean estJoignable(Cote b){
+        return this.Case[0] == b.Case[0] && this.Case[1] == b.Case[1] && this.Case[3] == b.Case[3];
     }
 
 }

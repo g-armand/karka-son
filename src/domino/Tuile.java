@@ -27,7 +27,7 @@ public class Tuile {
     }
 
     public boolean joinable(Direction joinDirection, Tuile other){
-        return this.getCoteAtDirection(joinDirection).equals(other.getCoteAtDirection(joinDirection.opposed())));
+        return this.getCoteAtDirection(joinDirection).estJoignable(other.getCoteAtDirection(joinDirection.opposed()));
     }
 
     public boolean joinable(Tuile other){
