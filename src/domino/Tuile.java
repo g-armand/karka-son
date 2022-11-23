@@ -1,4 +1,4 @@
-package src.domino;
+package domino;
 
 public class Tuile {
 }
