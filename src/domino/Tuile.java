@@ -1,5 +1,6 @@
 package domino;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import static domino.Direction.*;
@@ -16,4 +17,23 @@ public class Tuile {
         this.cotes[3] = new Cote(East);
     }
 
+    public Cote getCoteAtDirection(Direction direction){
+        for(Cote cote: this.cotes){
+            if(cote.oriented==direction){
+                return cote;
+            }
+        }
+        return null;
+    }
+
+    public boolean joinable(Direction joinDirection, Tuile other){
+        return this.getCoteAtDirection(joinDirection).equals(other.getCoteAtDirection(joinDirection.opposed())));
+    }
+
+    public boolean joinable(Tuile other){
+        return this.joinable(North, other) ||
+                this.joinable(South, other) ||
+                this.joinable(West, other) ||
+                this.joinable(East, other);
+    }
 }
