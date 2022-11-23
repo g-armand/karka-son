@@ -16,7 +16,7 @@ public class Cote {
     }
 
     public boolean estJoignable(Cote a, Cote b){
-        return a.Case[0] == b.Case[0] || a.Case[1] == b.Case[1] || a.Case[3] == b.Case[3];
+        return a.Case[0] == b.Case[0] && a.Case[1] == b.Case[1] && a.Case[3] == b.Case[3];
     }
 
 }
