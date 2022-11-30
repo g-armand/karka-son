@@ -62,19 +62,23 @@ public class Tile {
 
 
     //not good because cannot chain multiple Tuile on a same line
-    public String toString() {
 
-        String line = " ";
 
-        for (int i = 0; i < this.rows; i++) {
-            for (int j = 0; j < this.rows; j++) {
-                char content = this.content[i][j];
-//                System.out.println(content);
-                line = line + String.valueOf(content);
-            }
-            line = line + "\n";
+    public String getLine(int index){
+        String carchain = "";
+        for (int j = 0; j < this.rows; j++) {
+            carchain = carchain + this.content[index][j];
         }
-        return line;
+        return carchain;
+    }
+
+    @Override
+    public String toString() {
+        return getLine(0) +'\n' +
+                getLine(1) +'\n' +
+                getLine(2) +'\n' +
+                getLine(3) +'\n' +
+                getLine(4) +'\n';
     }
 
     public void spin(Tile tuile, String rotation){
