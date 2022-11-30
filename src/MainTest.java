@@ -1,4 +1,4 @@
-import domino.Tuile;
+import domino.Tile;
 
 public class MainTest {
     public static void main(String[] args){
@@ -7,20 +7,21 @@ public class MainTest {
     public static void blyadstvo (String[] args){System.out.println("Блядство");}
 
     public static void testTourner() {
-        Tuile testTuile = new Tuile();
+        Tile testTuile = new Tile(0,0);
         System.out.println(testTuile);
-        testTuile.tourner(testTuile, "gauche");
+        testTuile.spin(testTuile, "gauche");
         System.out.println(testTuile);
-        testTuile.tourner(testTuile, "droite");
+        testTuile.spin(testTuile, "droite");
         System.out.println(testTuile);
-        testTuile.tourner(testTuile, "droite");
+        testTuile.spin(testTuile, "droite");
         System.out.println(testTuile);
         joinableTest();
+
     }
 
     public static void joinableTest(){
-        Tuile testTuile = new Tuile();
-        Tuile othertestTuile = new Tuile();
+        Tile testTuile = new Tile(0,0);
+        Tile othertestTuile = new Tile(0,0);
 
         testTuile.content[0][1] = '1';
         testTuile.content[4][1] = '1';
@@ -48,7 +49,6 @@ public class MainTest {
         othertestTuile.content[3][0] = '6';
         othertestTuile.content[3][4] = '6';
 
-        System.out.println(testTuile.joinable(othertestTuile));
         System.out.println(testTuile.joinable(othertestTuile, "north"));
         System.out.println(testTuile.joinable(othertestTuile, "south"));
         System.out.println(testTuile.joinable(othertestTuile, "east"));

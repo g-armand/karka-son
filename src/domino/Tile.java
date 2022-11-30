@@ -3,7 +3,7 @@ package domino;
 import java.util.Objects;
 import java.util.Random;
 
-public class Tuile {
+public class Tile {
 
     public char[][] content = new char [5][5];
     int rows = 5; // nombre de rangs
@@ -11,7 +11,7 @@ public class Tuile {
     int x;
     int y;
 
-    public Tuile(int x, int y){
+    public Tile(int x, int y){
         this.x = x;
         this.y = y;
         Random a = new Random();
@@ -31,7 +31,7 @@ public class Tuile {
         }
     }
 
-    public boolean joinable(Tuile other, String orientation){
+    public boolean joinable(Tile other, String orientation){
         boolean result = false;
         if(orientation.equals("north")) {
             result = (this.content[0][1] == other.content[4][1] &&
@@ -60,11 +60,6 @@ public class Tuile {
         this.y = this.y+1;
     }
 
-    //not finished
-    public boolean joinable(Tuile other){
-        return (this.content[0][1] == other.content[4][1] &&
-                this.content[0][2] == other.content[4][2]);
-    }
 
     //not good because cannot chain multiple Tuile on a same line
     public String toString() {
@@ -82,7 +77,7 @@ public class Tuile {
         return line;
     }
 
-    public void tourner(Tuile tuile, String rotation){
+    public void spin(Tile tuile, String rotation){
 
         int n = this.rows;
 
