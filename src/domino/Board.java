@@ -1,8 +1,8 @@
 package domino;
 
 public class Board {
-    Tile[][] tiles = new Tile[3][3];
-    static int tilesTotal = 1;
+    Tile[][] tiles = new Tile[1][1];
+    static int tilesTotal = 0;
     public Board(){
 
     }
