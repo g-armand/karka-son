@@ -7,10 +7,13 @@ public class Tuile {
 
     public char[][] content = new char [5][5];
     int rows = 5; // nombre de rangs
-    char[][] content = new char [5][5];
-    int rows = 5;
 
-    public Tuile(){
+    int x;
+    int y;
+
+    public Tuile(int x, int y){
+        this.x = x;
+        this.y = y;
         Random a = new Random();
         for (int i = 0; i<5; i++){
             for(int j = 0; j<5; j++){
@@ -50,6 +53,11 @@ public class Tuile {
             System.out.println("wrong orientation");
         }
         return result;
+    }
+
+    public void update(){
+        this.x = this.x+1;
+        this.y = this.y+1;
     }
 
     //not finished
