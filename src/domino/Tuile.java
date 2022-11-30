@@ -5,6 +5,8 @@ import java.util.Random;
 
 public class Tuile {
 
+    public char[][] content = new char [5][5];
+    int rows = 5; // nombre de rangs
     char[][] content = new char [5][5];
     int rows = 5;
 
@@ -26,6 +28,29 @@ public class Tuile {
         }
     }
 
+    public boolean joinable(Tuile other, String orientation){
+        boolean result = false;
+        if(orientation.equals("north")) {
+            result = (this.content[0][1] == other.content[4][1] &&
+                    this.content[0][2] == other.content[4][2] &&
+                    this.content[0][3] == other.content[4][3]);
+        } else if (orientation.equals("south")) {
+            result = (other.content[0][1] == this.content[4][1] &&
+                    other.content[0][2] == this.content[4][2] &&
+                    other.content[0][3] == this.content[4][3]);
+        } else if (orientation.equals("west")) {
+            result = (this.content[1][0] == other.content[1][0] &&
+                    this.content[2][0] == other.content[2][0] &&
+                    this.content[3][0] == other.content[3][0]);
+        } else if (orientation.equals("east")) {
+            result = (other.content[1][0] == this.content[1][0] &&
+                    other.content[2][0] == this.content[2][0] &&
+                    other.content[3][0] == this.content[3][0]);
+        } else {
+            System.out.println("wrong orientation");
+        }
+        return result;
+    }
 
     //not finished
     public boolean joinable(Tuile other){
