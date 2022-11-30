@@ -1,13 +1,12 @@
 package domino;
 
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
 public class Tuile {
 
     char[][] content = new char [5][5];
-    int n = 3; // nombre de rangs
+    int rows = 5; // nombre de rangs
 
     public Tuile(){
         Random a = new Random();
@@ -39,7 +38,9 @@ public class Tuile {
         return "";
     }
 
-    public void tourner_droite(Tuile tuile, int n, String rotation){
+    public void tourner_droite(Tuile tuile, String rotation){
+
+        int n = this.rows;
 
         // TRANSPOSE
         for (int i = 0; i < n; i++) {
