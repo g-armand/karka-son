@@ -30,6 +30,7 @@ public class Tuile {
         return this.getCoteAtDirection(joinDirection).estJoignable(other.getCoteAtDirection(joinDirection.opposed()));
     }
 
+    //general method; might not be used :)
     public boolean joinable(Tuile other){
         return this.joinable(North, other) ||
                 this.joinable(South, other) ||
