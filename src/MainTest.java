@@ -1,6 +1,5 @@
 import domino.Board;
 import domino.Tile;
-import org.w3c.dom.html.HTMLTitleElement;
 
 public class MainTest {
     public static void main(String[] args){

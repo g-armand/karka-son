@@ -1,9 +1,14 @@
 package domino;
 
+import java.util.Random;
+
 public class Player {
 
     String name;
-    int tiles;
+    Tile[] tiles;
     int points;
+
+    public Player(){}
+
 
 }

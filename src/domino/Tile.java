@@ -60,10 +60,6 @@ public class Tile {
         this.y = this.y+1;
     }
 
-
-    //not good because cannot chain multiple Tuile on a same line
-
-
     public String getLine(int index){
         String carchain = "";
         for (int j = 0; j < this.rows; j++) {
