@@ -29,11 +29,11 @@ public class MainTest {
         testTuile.content[0][3] = '3';
         testTuile.content[4][3] = '3';
         testTuile.content[1][0] = '4';
-        testTuile.content[1][0] = '4';
+        testTuile.content[1][4] = '4';
         testTuile.content[2][0] = '5';
-        testTuile.content[2][0] = '5';
+        testTuile.content[2][4] = '5';
         testTuile.content[3][0] = '6';
-        testTuile.content[3][0] = '6';
+        testTuile.content[3][4] = '6';
 
         othertestTuile.content[0][1] = '1';
         othertestTuile.content[4][1] = '1';
