@@ -6,7 +6,7 @@ import java.util.Random;
 public class Tuile {
 
     char[][] content = new char [5][5];
-    int rows = 5; // nombre de rangs
+    int rows = 5;
 
     public Tuile(){
         Random a = new Random();
@@ -33,17 +33,23 @@ public class Tuile {
                 this.content[0][2] == other.content[4][2]);
     }
 
-    public void spin(boolean droite){
-    }
-// on a besoin de ça?
-
-
     //not good because cannot chain multiple Tuile on a same line
-    public String toString(){
-        return "";
+    public String toString() {
+
+        String line = " ";
+
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.rows; j++) {
+                char content = this.content[i][j];
+//                System.out.println(content);
+                line = line + String.valueOf(content);
+            }
+            line = line + "\n";
+        }
+        return line;
     }
 
-    public void tourner_droite(Tuile tuile, String rotation){
+    public void tourner(Tuile tuile, String rotation){
 
         int n = this.rows;
 
