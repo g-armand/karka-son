@@ -1,8 +1,8 @@
 package domino;
 
 public class Board {
-    Tile[][] tiles = new Tile[1][1];
-    static int tilesTotal = 0;
+    Tile[][] tiles = new Tile[3][3];
+    static int tilesTotal = 1;
     public Board(){
 
     }
@@ -11,11 +11,11 @@ public class Board {
         tilesTotal ++;
         Tile[][] tilesUpdated = new Tile[tilesTotal*2-1][tilesTotal*2-1];
         for(int i = 0; i<tilesTotal*2-1; i++){
-            for(int j = 0; j<tilesTotal*2-1; i++){
+            for(int j = 0; j<tilesTotal*2-1; j++){
                 if(i == 0
                    || i == tilesTotal*2-2
                    || j == 0
-                   || j == tilesTotal*2+1){
+                   || j == tilesTotal*2-2){
                     tilesUpdated[i][j] = new EmptyTile(i, j);
                 }
                 else{
@@ -24,29 +24,28 @@ public class Board {
             }
         }
         //verifier si posable
-        if(tilesUpdated[x][y] instanceof EmptyTile){
-
+        if(tilesUpdated[x][y] instanceof EmptyTile
+//        && tilesUpdated[x+1][y].joinable(t, "north")&&
+//           tilesUpdated[x-1][y].joinable(t, "south")&&
+//           tilesUpdated[x][y+1].joinable(t, "west")&&
+//           tilesUpdated[x][y-1].joinable(t, "east")
+        ){
+            tilesUpdated[x][y] = t;
+            this.tiles = tilesUpdated;
         }
-
-        //recopie le this.tuiles dans tuilesUpdated
-
-        //ajouter t dans tuilesUpdated
-
-        this.tiles = tilesUpdated;
-
     }
 
     public String toString(){
+        String res = "";
         for(Tile[] line: this.tiles){
             for(int lineIndex = 0; lineIndex<5; lineIndex++){
                 for(Tile t: line) {
-                    //                    System.out.print(t.getLine(lineIndex));
-
+                    res += t.getLine(lineIndex);
                 }
+                res += "\n";
             }
-
         }
-        return "";
+        return res;
     }
 
 }

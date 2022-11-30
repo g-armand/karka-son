@@ -30,7 +30,7 @@ public class Jeu {
         int i = a.nextInt();
         Tile randomTile = tileBag.get(i);
         tileBag.remove(i);
-        this.player.tiles.add(randomTile);
+//        this.player.tiles.add(randomTile);
         return randomTile;
     }
 
