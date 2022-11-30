@@ -14,20 +14,25 @@ public class Tuile {
         for (int i = 0; i<5; i++){
             for(int j = 0; j<5; j++){
                 //north and south sides
-                if((i==0||i==4) && j<5 && j>0 ){
-                    this.content[i][j] = (char)a.nextInt();
+                if((i==0||i==4) && j<4 && j>0 ){
+                    this.content[i][j] = (char)(a.nextInt(3)+'0');
+                }
+                //west and east sides
+                else if((j==0 || j == 4) && i<4 && i>0 ){
+                    this.content[i][j] = (char)(a.nextInt(3)+'0');
+                } else {
+                    this.content[i][j] = '.';
                 }
             }
         }
-
     }
 
 
+    //not finished
     public boolean joinable(Tuile other){
-//        return this.getCoteAtDirection(joinDirection).estJoignable(other.getCoteAtDirection(joinDirection.opposed()));
-        return true;
+        return (this.content[0][1] == other.content[4][1] &&
+                this.content[0][2] == other.content[4][2]);
     }
-
 
     public void spin(boolean droite){
     }
