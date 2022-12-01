@@ -19,11 +19,11 @@ public class Tile {
             for(int j = 0; j<5; j++){
                 //north and south sides
                 if((i==0||i==4) && j<4 && j>0 ){
-                    this.content[i][j] = (char)(a.nextInt(3)+'0');
+                    this.content[i][j] = (char)(a.nextInt(2)+'0');
                 }
                 //west and east sides
                 else if((j==0 || j == 4) && i<4 && i>0 ){
-                    this.content[i][j] = (char)(a.nextInt(3)+'0');
+                    this.content[i][j] = (char)(a.nextInt(2)+'0');
                 } else {
                     this.content[i][j] = '.';
                 }
@@ -42,13 +42,13 @@ public class Tile {
                     other.content[0][2] == this.content[4][2] &&
                     other.content[0][3] == this.content[4][3]);
         } else if (orientation.equals("west")) {
-            result = (this.content[1][0] == other.content[1][0] &&
-                    this.content[2][0] == other.content[2][0] &&
-                    this.content[3][0] == other.content[3][0]);
+            result = (this.content[1][0] == other.content[1][4] &&
+                    this.content[2][0] == other.content[2][4] &&
+                    this.content[3][0] == other.content[3][4]);
         } else if (orientation.equals("east")) {
-            result = (other.content[1][0] == this.content[1][0] &&
-                    other.content[2][0] == this.content[2][0] &&
-                    other.content[3][0] == this.content[3][0]);
+            result = (other.content[1][0] == this.content[1][4] &&
+                    other.content[2][0] == this.content[2][4] &&
+                    other.content[3][0] == this.content[3][4]);
         } else {
             System.out.println("wrong orientation");
         }

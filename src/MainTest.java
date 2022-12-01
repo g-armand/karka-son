@@ -10,8 +10,25 @@ public class MainTest {
         Board b = new Board();
         Tile t = new Tile(0,0);
         b.addTile(t, 0,0);
-        b.addTile(t, 0,0);
-        b.addTile(t, 1,2);
+        System.out.println(b);
+        b.addTile(new Tile(0,0),0,0);
+        System.out.println(b);
+
+        while(b.tiles.length !=7){
+            b.addTile(new Tile(0,0),1,2);
+            System.out.println(b);
+        }
+        while(b.tiles.length !=9){
+            b.addTile(new Tile(0,0),3,1);
+            System.out.println(b);
+        }
+
+        b.addTile(new Tile(0,0), 0,0);
+
+        //test board trimming
+        System.out.println(b);
+        Tile[][] newTileMatrix = b.trimBoard(b.tiles);
+        System.out.println(b.toString(newTileMatrix));
         System.out.println(b);
 
     }
