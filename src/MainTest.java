@@ -7,19 +7,15 @@ public class MainTest {
     }
 
     public static void boardTest(){
-        Board b = new Board();
         Tile t = new Tile(0,0);
-        b.addTile(t, 0,0);
-        System.out.println(b);
-        b.addTile(new Tile(0,0),0,0);
-        System.out.println(b);
+        Board b = new Board();
 
-        while(b.tiles.length !=7){
-            b.addTile(new Tile(0,0),1,2);
+        while(b.tiles.length !=3){
+            b.addTile(new Tile(0,0),1,0);
             System.out.println(b);
         }
-        while(b.tiles.length !=9){
-            b.addTile(new Tile(0,0),3,1);
+        while(b.tiles.length !=5){
+            b.addTile(new Tile(0,0),1,2);
             System.out.println(b);
         }
 
@@ -27,9 +23,8 @@ public class MainTest {
 
         //test board trimming
         System.out.println(b);
-        Tile[][] newTileMatrix = b.trimBoard(b.tiles);
+        Tile[][] newTileMatrix = b.tiles;
         System.out.println(b.toString(newTileMatrix));
-        System.out.println(b);
 
     }
 

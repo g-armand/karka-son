@@ -5,38 +5,29 @@ public class Board {
 
     static int tilesTotal = 0;
     public Board(){
-        this.tiles[0][0] = new EmptyTile(0,0);
+        this.tiles[0][0] = new Tile(0,0);
     }
 
     public void addTile(Tile t, int x, int y){
         tilesTotal ++;
-        Tile[][] tilesUpdated = new Tile[this.tiles.length+2][this.tiles.length+2];
-        for(int i = 0; i<this.tiles.length+2; i++){
-            for(int j = 0; j<this.tiles.length+2; j++){
-                if(  (i>1 && i<this.tiles.length+1)
-                   &&(j>1 && j<this.tiles.length+1)){
-                    tilesUpdated[i][j] = this.tiles[i-1][j-1];
-                }
-                else{
-                    tilesUpdated[i][j] = new EmptyTile(i, j);
-                }
-            }
-        }
-        x+=1;
-        y+=1;
+        //tilesUpdated is the future version of this.tiles
+        Tile[][] tilesUpdated = increaseSizeOfBoard(this.tiles);
+
+        //tilesUpdatedTemp is only used here to determine if t can be put a coordinates x and y
+        //we increase the board size by two avoids IndexOutOfBoundsException
+        Tile[][] tilesUpdatedTemp = increaseSizeOfBoard(tilesUpdated);
+        x+=2;
+        y+=2;
+
         //verifier si posable
-        if(tilesUpdated[x][y] instanceof EmptyTile
-        && (x == tilesUpdated.length-1 || tilesUpdated[x+1][y].joinable(t, "north"))&&
-           (x== 0 || tilesUpdated[x-1][y].joinable(t, "south"))&&
-           (y == tilesUpdated.length-1 || tilesUpdated[x][y+1].joinable(t, "west"))&&
-           (y == 0 || tilesUpdated[x][y-1].joinable(t, "east"))){
-            tilesUpdated[x][y] = t;
+        if(isUsable(t, tilesUpdatedTemp, x , y)){
+            tilesUpdated[x-1][y-1] = t;
             this.tiles = tilesUpdated;
         }
     }
 
     /*
-    might be deleted later,
+    might be deleted later
      */
     public String toString(Tile[][] t){
         Tile[][] temp = this.tiles;
@@ -61,6 +52,40 @@ public class Board {
             }
         }
         return res;
+    }
+
+    /*
+    checks if a Tile can be played on the current board
+     */
+    public boolean isUsable(Tile t){
+        //add empty tiles around the board (avoids IndexOutOfBoundException)
+        Tile[][] tilesUpdatedTemp = this.increaseSizeOfBoard(this.tiles);
+
+        //try to find at least one valid position
+        boolean usable = false;
+        for(int x = 0; x<this.tiles.length-1; x++){
+            for(int y = 0; y<this.tiles.length; y++){
+                if(this.isUsable(t, tilesUpdatedTemp, x , y)) {
+                    usable = true;
+                }
+            }
+        }
+        return usable;
+    }
+
+    public boolean isUsable(Tile tile, Tile[][] board, int x, int y){
+        boolean areNeighborsJoinable = (
+                board[x+1][y].joinable(tile, "north") &&
+                board[x-1][y].joinable(tile, "south") &&
+                board[x][y+1].joinable(tile, "west") &&
+                board[x][y-1].joinable(tile, "east"));
+        boolean isTileEmpty = board[x][y] instanceof EmptyTile;
+        boolean isTileLinkedToNeighbor = !(
+                board[x+1][y] instanceof EmptyTile &&
+                board[x-1][y] instanceof EmptyTile &&
+                board[x][y+1] instanceof EmptyTile &&
+                board[x][y-1] instanceof EmptyTile);
+        return areNeighborsJoinable && isTileEmpty && isTileLinkedToNeighbor;
     }
 
     /*
@@ -122,4 +147,19 @@ public class Board {
         return tilesUpdated;
     }
 
+    public Tile[][] increaseSizeOfBoard(Tile[][] tiles){
+        Tile[][] tilesUpdated = new Tile[tiles.length+2][tiles.length+2];
+        for(int i = 0; i<tiles.length+2; i++){
+            for(int j = 0; j<tiles.length+2; j++){
+                if(  (i>=1 && i<tiles.length+1)
+                   &&(j>=1 && j<tiles.length+1)){
+                    tilesUpdated[i][j] = tiles[i-1][j-1];
+                }
+                else{
+                    tilesUpdated[i][j] = new EmptyTile(i, j);
+                }
+            }
+        }
+        return tilesUpdated;
+    }
 }
