@@ -1,11 +1,16 @@
 package domino;
 
 public class Board {
-    public Tile[][] tiles = new Tile[1][1];
+    public Tile[][] tiles = new Tile[3][3];
 
     static int tilesTotal = 0;
     public Board(){
-        this.tiles[0][0] = new Tile(0,0);
+        for(int i = 0; i<3; i++){
+            for(int j = 0; j<3; j++){
+                this.tiles[i][j] = new EmptyTile();
+            }
+        }
+        this.tiles[1][1] = new Tile();
     }
 
     public void addTile(Tile t, int x, int y){
@@ -14,7 +19,7 @@ public class Board {
         Tile[][] tilesUpdated = increaseSizeOfBoard(this.tiles);
 
         //tilesUpdatedTemp is only used here to determine if t can be put a coordinates x and y
-        //we increase the board size by two avoids IndexOutOfBoundsException
+        //avoids IndexOutOfBoundsException
         Tile[][] tilesUpdatedTemp = increaseSizeOfBoard(tilesUpdated);
         x+=2;
         y+=2;
@@ -29,24 +34,12 @@ public class Board {
     /*
     might be deleted later
      */
-    public String toString(Tile[][] t){
-        Tile[][] temp = this.tiles;
-
-        //Board.toString actually reads this.tiles
-        this.tiles = this.trimBoard(t);
-        String result = this.toString();
-
-        //reset to normal values and return result
-        this.tiles = temp;
-        return result;
-    }
-
-    public String toString(){
+    public static String printableBoard(Tile[][] board){
         String res = "";
-        for(Tile[] line: this.tiles){
+        for(Tile[] line: board){
             for(int lineIndex = 0; lineIndex<5; lineIndex++){
-                for(Tile t: line) {
-                    res += t.getLine(lineIndex);
+                for(Tile tile: line) {
+                    res += tile.getLine(lineIndex);
                 }
                 res += "\n";
             }
@@ -59,14 +52,17 @@ public class Board {
      */
     public boolean isUsable(Tile t){
         //add empty tiles around the board (avoids IndexOutOfBoundException)
-        Tile[][] tilesUpdatedTemp = this.increaseSizeOfBoard(this.tiles);
+        Tile[][] tilesUpdatedTemp = increaseSizeOfBoard(increaseSizeOfBoard(this.tiles));
 
         //try to find at least one valid position
         boolean usable = false;
-        for(int x = 0; x<this.tiles.length-1; x++){
-            for(int y = 0; y<this.tiles.length; y++){
-                if(this.isUsable(t, tilesUpdatedTemp, x , y)) {
-                    usable = true;
+        for(int x = 1; x<tilesUpdatedTemp.length-2; x++){
+            for(int y = 1; y<tilesUpdatedTemp.length-2; y++){
+                for(int spinIndex = 0; spinIndex<5; spinIndex++){
+                    if(this.isUsable(t, tilesUpdatedTemp, x , y)) {
+                        usable = true;
+                    }
+                    t.spin("droite");
                 }
             }
         }
@@ -91,51 +87,12 @@ public class Board {
     /*
     returns a Tile[][] with empty rows and columns removed
      */
-    public Tile[][] trimBoard(Tile[][] tiles){
-        int startX = 0;
-        int endX = tiles.length-1;
-        int startY = 0;
-        int endY = tiles.length-1;
-
-        //find boundaries for rows
-        boolean stillEmpty = true;
-        while(stillEmpty){
-            for(int i = 0; i<tiles.length-1;i++){
-                 if(!(tiles[startX][i] instanceof EmptyTile)) stillEmpty = false;
-            }
-            if(stillEmpty){
-                startX++;
-            }
-        }
-        stillEmpty = true;
-        while(stillEmpty){
-            for(int i = tiles.length-1; i>0; i--){
-                if(!(tiles[endX][i] instanceof EmptyTile)) stillEmpty = false;
-            }
-            if(stillEmpty){
-                endX--;
-            }
-        }
-
-        //find boundaries for y
-        stillEmpty = true;
-        while(stillEmpty){
-            for(int i = 0; i<tiles.length-1;i++){
-                if(!(tiles[i][startY] instanceof EmptyTile)) stillEmpty = false;
-            }
-            if(stillEmpty){
-                startY++;
-            }
-        }
-        stillEmpty = true;
-        while(stillEmpty){
-            for(int i = tiles.length-1; i>0; i--){
-                if(!(tiles[i][endY] instanceof EmptyTile)) stillEmpty = false;
-            }
-            if(stillEmpty){
-                endY--;
-            }
-        }
+    public static Tile[][] trimBoard(Tile[][] tiles){
+        //define boundary indexes
+        int startX = findBoundary(tiles, "north");
+        int endX = findBoundary(tiles, "south");
+        int startY = findBoundary(tiles, "west");
+        int endY = findBoundary(tiles, "east");
 
         //create new Tile matrix
         Tile[][] tilesUpdated = new Tile[endX-startX+1][endY-startY+1];
@@ -147,19 +104,90 @@ public class Board {
         return tilesUpdated;
     }
 
-    public Tile[][] increaseSizeOfBoard(Tile[][] tiles){
-        Tile[][] tilesUpdated = new Tile[tiles.length+2][tiles.length+2];
+    /*
+    returns the index of the first row ("west" "east") or column ("north" "south") that contains a not empty Tile
+     */
+    public static int findBoundary(Tile[][] board, String direction){
+        if(board.length==1){
+            return 0;
+        }
+        boolean stillEmpty = true;
+        int boundaryIndex;
+        if(direction.matches("north")) {
+            boundaryIndex = 0;
+            while(stillEmpty){
+                for(int i = 0; i<board.length-1;i++){
+                    if(!(board[boundaryIndex][i] instanceof EmptyTile)) stillEmpty = false;
+                }
+                if(stillEmpty){
+                    boundaryIndex++;
+                }
+            }
+        } else if(direction.matches("south")) {
+            boundaryIndex = board.length-1;
+            while(stillEmpty){
+                for(int i = board.length-1; i>0; i--){
+                    if (!(board[boundaryIndex][i] instanceof EmptyTile)) {
+                        stillEmpty = false;
+                    }
+                }
+                if(stillEmpty){
+                    boundaryIndex--;
+                }
+            }
+        } else if(direction.matches("west")){
+            boundaryIndex = 0;
+            while(stillEmpty){
+                for(int i = 0; i<board[0].length-1;i++){
+                    if(!(board[i][boundaryIndex] instanceof EmptyTile)) stillEmpty = false;
+                }
+                if(stillEmpty){
+                    boundaryIndex++;
+                }
+            }
+        } else if(direction.matches("east")){
+            boundaryIndex = board[0].length-1;
+            while(stillEmpty){
+                for(int i = board[0].length-1; i>0; i--){
+                    if(!(board[i][boundaryIndex] instanceof EmptyTile)) stillEmpty = false;
+                }
+                if(stillEmpty){
+                    boundaryIndex--;
+                }
+            }
+        } else{
+            boundaryIndex = -1;
+        }
+        return boundaryIndex;
+    }
+
+    public static Tile[][] increaseSizeOfBoard(Tile[][] tiles){
+        System.out.println("shape is " + tiles.length + " " + tiles[0].length);
+        Tile[][] tilesUpdated = new Tile[tiles.length+2][tiles[0].length+2];
         for(int i = 0; i<tiles.length+2; i++){
-            for(int j = 0; j<tiles.length+2; j++){
+            for(int j = 0; j<tiles[0].length+2; j++){
                 if(  (i>=1 && i<tiles.length+1)
-                   &&(j>=1 && j<tiles.length+1)){
+                   &&(j>=1 && j<tiles[0].length+1)){
                     tilesUpdated[i][j] = tiles[i-1][j-1];
                 }
                 else{
-                    tilesUpdated[i][j] = new EmptyTile(i, j);
+                    tilesUpdated[i][j] = new EmptyTile();
                 }
             }
         }
         return tilesUpdated;
     }
+
+    public int countPoints(int x, int y){
+        Tile[][] extendedBoard = increaseSizeOfBoard(this.tiles);
+        x++;
+        x++;
+        y++;
+        y++;
+        return Tile.sumSides(extendedBoard[x][y], extendedBoard[x-1][y], "north")
+             + Tile.sumSides(extendedBoard[x][y], extendedBoard[x+1][y], "south")
+             + Tile.sumSides(extendedBoard[x][y], extendedBoard[x][y+1], "east")
+             + Tile.sumSides(extendedBoard[x][y], extendedBoard[x][y-1], "west");
+    }
+
 }

@@ -1,51 +1,57 @@
 import domino.Board;
+import domino.Jeu;
 import domino.Tile;
 
 public class MainTest {
     public static void main(String[] args){
-        boardTest();
+        blyadstvo();
     }
 
     public static void boardTest(){
-        Tile t = new Tile(0,0);
+        Tile t = new Tile();
         Board b = new Board();
 
         while(b.tiles.length !=3){
-            b.addTile(new Tile(0,0),1,0);
-            System.out.println(b);
-        }
-        while(b.tiles.length !=5){
-            b.addTile(new Tile(0,0),1,2);
-            System.out.println(b);
+            b.addTile(new Tile(),1,0);
+            System.out.println(Board.printableBoard(b.tiles));
         }
 
-        b.addTile(new Tile(0,0), 0,0);
+        while(b.tiles.length !=5){
+            b.addTile(new Tile(),1,2);
+            System.out.println(Board.printableBoard(b.tiles));
+        }
+
+        b.addTile(new Tile(), 0,0);
 
         //test board trimming
         System.out.println(b);
         Tile[][] newTileMatrix = b.tiles;
-        System.out.println(b.toString(newTileMatrix));
+        newTileMatrix = Board.trimBoard(newTileMatrix);
+        System.out.println(Board.printableBoard(newTileMatrix));
 
     }
 
-    public static void blyadstvo (String[] args){System.out.println("Блядство");}
+    public static void blyadstvo (){
+        System.out.println("Блядство");
+        Jeu domino = new Jeu(2,20);
+        domino.play();
+    }
 
     public static void testTourner() {
-        Tile testTuile = new Tile(0,0);
+        Tile testTuile = new Tile();
         System.out.println(testTuile);
-        testTuile.spin(testTuile, "gauche");
+        testTuile.spin("gauche");
         System.out.println(testTuile);
-        testTuile.spin(testTuile, "droite");
+        testTuile.spin("droite");
         System.out.println(testTuile);
-        testTuile.spin(testTuile, "droite");
+        testTuile.spin("droite");
         System.out.println(testTuile);
         joinableTest();
-
     }
 
     public static void joinableTest(){
-        Tile testTuile = new Tile(0,0);
-        Tile othertestTuile = new Tile(0,0);
+        Tile testTuile = new Tile();
+        Tile othertestTuile = new Tile();
 
         testTuile.content[0][1] = '1';
         testTuile.content[4][1] = '1';

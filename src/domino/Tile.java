@@ -8,12 +8,7 @@ public class Tile {
     public char[][] content = new char [5][5];
     int rows = 5; // nombre de rangs
 
-    int x;
-    int y;
-
-    public Tile(int x, int y){
-        this.x = x;
-        this.y = y;
+    public Tile(){
         Random a = new Random();
         for (int i = 0; i<5; i++){
             for(int j = 0; j<5; j++){
@@ -25,7 +20,7 @@ public class Tile {
                 else if((j==0 || j == 4) && i<4 && i>0 ){
                     this.content[i][j] = (char)(a.nextInt(2)+'0');
                 } else {
-                    this.content[i][j] = '.';
+                    this.content[i][j] = ' ';
                 }
             }
         }
@@ -55,10 +50,6 @@ public class Tile {
         return result;
     }
 
-    public void update(){
-        this.x = this.x+1;
-        this.y = this.y+1;
-    }
 
     public String getLine(int index){
         String carchain = "";
@@ -77,16 +68,14 @@ public class Tile {
                 getLine(4) +'\n';
     }
 
-    public void spin(Tile tuile, String rotation){
-
+    public void spin(String rotation){
         int n = this.rows;
-
         // TRANSPOSE
         for (int i = 0; i < n; i++) {
             for (int j = i; j < n; j++) {
-                char temp = tuile.content[i][j];
-                tuile.content[i][j] = tuile.content[j][i];
-                tuile.content[j][i] = temp;
+                char temp = this.content[i][j];
+                this.content[i][j] = this.content[j][i];
+                this.content[j][i] = temp;
             }
         }
 
@@ -95,20 +84,49 @@ public class Tile {
             int low = 0, high = n - 1;
             while (low < high) {
                 if (Objects.equals(rotation, "droite")){
-                    char temp = tuile.content[i][low];
-                    tuile.content[i][low] = tuile.content[i][high];
-                    tuile.content[i][high] = temp;
+                    char temp = this.content[i][low];
+                    this.content[i][low] = this.content[i][high];
+                    this.content[i][high] = temp;
                     low++;
                     high--;
                 }
                 if (Objects.equals(rotation, "gauche")){
-                    char temp = tuile.content[low][i];
-                    tuile.content[low][i] = tuile.content[high][i];
-                    tuile.content[high][i] = temp;
+                    char temp = this.content[low][i];
+                    this.content[low][i] = this.content[high][i];
+                    this.content[high][i] = temp;
                     low++;
                     high--;
                 }
             }
         }
+    }
+
+    public static int sumSides(Tile centerTile, Tile sideTile, String side){
+        int result = 0;
+        if(!(sideTile instanceof EmptyTile)){
+            switch (side) {
+                case "north":
+                    result = Character.getNumericValue(centerTile.content[0][1]) + Character.getNumericValue(sideTile.content[4][1]) +
+                            Character.getNumericValue(centerTile.content[0][2]) + Character.getNumericValue(sideTile.content[4][2]) +
+                            Character.getNumericValue(centerTile.content[0][3]) + Character.getNumericValue(sideTile.content[4][3]);
+                    break;
+                case "south":
+                    result = Character.getNumericValue(centerTile.content[4][1]) + Character.getNumericValue(sideTile.content[0][1]) +
+                            Character.getNumericValue(centerTile.content[4][2]) + Character.getNumericValue(sideTile.content[0][2]) +
+                            Character.getNumericValue(centerTile.content[4][3]) + Character.getNumericValue(sideTile.content[0][3]);
+                    break;
+                case "east":
+                    result = Character.getNumericValue(centerTile.content[1][4]) + Character.getNumericValue(sideTile.content[1][0]) +
+                            Character.getNumericValue(centerTile.content[2][4]) + Character.getNumericValue(sideTile.content[2][0]) +
+                            Character.getNumericValue(centerTile.content[3][4]) + Character.getNumericValue(sideTile.content[3][0]);
+                    break;
+                case "west":
+                    result = Character.getNumericValue(centerTile.content[1][0]) + Character.getNumericValue(sideTile.content[1][4]) +
+                            Character.getNumericValue(centerTile.content[2][0]) + Character.getNumericValue(sideTile.content[2][4]) +
+                            Character.getNumericValue(centerTile.content[3][0]) + Character.getNumericValue(sideTile.content[3][4]);
+                    break;
+            }
+        }
+        return result;
     }
 }

@@ -1,8 +1,8 @@
 package domino;
 
 public class EmptyTile extends Tile{
-    public EmptyTile(int x, int y){
-        super(x, y);
+    public EmptyTile(){
+        super();
         for(int i = 0; i<this.rows; i++){
             for(int j = 0; j<this.rows; j++) {
                 this.content[i][j] = '.';

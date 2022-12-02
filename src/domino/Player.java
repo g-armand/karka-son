@@ -5,10 +5,11 @@ import java.util.Random;
 public class Player {
 
     String name;
-    Tile[] tiles;
     int points;
 
-    public Player(){}
+    public Player(){
+        this.points = 0;
+    }
 
 
 }
