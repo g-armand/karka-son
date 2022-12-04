@@ -34,7 +34,7 @@ public class MainTest {
     public static void blyadstvo (){
         System.out.println("Блядство");
         Jeu domino = new Jeu(2,20);
-        domino.play();
+        domino.playDomino();
     }
 
     public static void testTourner() {
