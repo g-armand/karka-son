@@ -1,10 +1,9 @@
-import domino.Board;
-import domino.Jeu;
-import domino.Tile;
+import domino.*;
 
 public class MainTest {
-    public static void main(String[] args){
-        blyadstvo();
+
+    public static void main(String[] args) {
+        MainMenu menu = new MainMenu();
     }
 
     public static void boardTest(){
