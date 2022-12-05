@@ -8,7 +8,6 @@ public class MainMenu extends JFrame {
 
     static String player1;
     static String player2;
-//    static String players_set;
 
     public MainMenu(){
 
@@ -42,30 +41,16 @@ public class MainMenu extends JFrame {
             main_menu.setVisible(false);
         });
 
-//        MenuButton players = new MenuButton("PLAYERS:");
-//        Choice players_num = new Choice();
-//        players_num.setSize(300,100);
-//        players_num.add("one");
-//        players_num.add("two");
-//        players.addActionListener(e -> players_set = players_num.getItem(players_num.getSelectedIndex()));
-
         JPanel set_name = new JPanel();
         set_name.setLayout(new GridLayout(2,2));
-//        JPanel set_num = new JPanel();
 
         set_name.add(name);
         set_name.add(name_field);
         set_name.add(name2);
         set_name.add(name_field2);
-
         set_name.setLayout(new FlowLayout());
 
-//        set_num.add(players);
-//        set_num.add(players_num);
-//        set_num.setLayout(new FlowLayout());
-
         main_menu.add(set_name);
-//        main_menu.add(set_num);
         main_menu.add(submit);
         main_menu.add(start);
         main_menu.add(exit);

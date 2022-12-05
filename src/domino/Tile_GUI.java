@@ -7,15 +7,16 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class Tile_GUI extends JLabel implements MouseListener {
+public class Tile_GUI extends JPanel implements MouseListener {
+
 
     public Tile_GUI(Tile t){
 
-        JPanel tile_panel = new JPanel(new GridLayout(5, 5, 0, 0));
+        this.setLayout(new GridLayout(5, 5, 0, 0));
         Border border = BorderFactory.createBevelBorder(BevelBorder.RAISED);
-        tile_panel.setBorder(border);
-        tile_panel.setSize(50, 50);
-        tile_panel.addMouseListener(this);
+        this.setBorder(border);
+        this.setSize(40, 40);
+        this.addMouseListener(this);
 
 
         for (int i = 0; i < t.rows; i++) {
@@ -23,16 +24,18 @@ public class Tile_GUI extends JLabel implements MouseListener {
                 JLabel element = new JLabel(String.valueOf(t.content[i][j]), SwingConstants.CENTER); // place number in the center of a case
                 element.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 8));
                 element.setBorder(border); // might be deleted later
-                tile_panel.add(element);
+                this.add(element);
             }
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-//        left_panel.remove(this);
-        DominoFrame.board.add(this, BorderLayout.CENTER);
-        this.setBackground(Color.CYAN);
+        DominoFrame.left_panel.remove(this);
+        DominoFrame.left_panel.revalidate();
+        DominoFrame.board.add(this);
+        DominoFrame.board.revalidate();
+//        this.setBackground(Color.CYAN);
     }
 
     @Override

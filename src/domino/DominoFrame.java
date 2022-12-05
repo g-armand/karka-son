@@ -4,55 +4,19 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class DominoFrame extends JFrame implements MouseListener {
+public class DominoFrame extends JFrame {
 
     String player1;
     String player2;
 
     JPanel main_panel = new JPanel();
     JPanel menu_panel = new JPanel();
-    JPanel left_panel = new JPanel();
+    static LeftPanelGUI left_panel = new LeftPanelGUI();
     static Background board = new Background();
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-//        left_panel.remove(this);
-//        board.add(this, BorderLayout.CENTER);
-        left_panel.getComponent(1).setBackground(Color.CYAN);
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-    public void addTile() {
-        Tile t = new Tile();
-        left_panel.add(new Tile_GUI(t));
-        board.add(new Tile_GUI(t));
-    }
-
-//    public JPanel get_tile(){
-//
-//        return;
-//    }
 
 
     public DominoFrame(String player1, String player2) {
+
 
         // GENERAL
 
@@ -63,15 +27,10 @@ public class DominoFrame extends JFrame implements MouseListener {
         this.player1 = player1;
         this.player2 = player2;
 
-        board.setSize(new Dimension(this.getWidth(), this.getHeight()));
-
         // BUTTONS
 
         MenuButton exit = new MenuButton("EXIT GAME");
         exit.addActionListener(e -> System.exit(0));
-
-        MenuButton addTile = new MenuButton("PICK A TILE");
-        addTile.addActionListener(e -> this.addTile());
 
         MenuButton mainmenu = new MenuButton("MAIN MENU");
         mainmenu.addActionListener(e -> {
@@ -83,16 +42,9 @@ public class DominoFrame extends JFrame implements MouseListener {
         // MENU
         menu_panel.setBackground(Color.black);
         menu_panel.add(exit);
-        menu_panel.add(addTile);
         menu_panel.add(mainmenu);
         menu_panel.setLayout(new FlowLayout());
         menu_panel.setPreferredSize(new Dimension(800, 60));
-
-        // LEFT PANEL
-        left_panel.add(new MenuButton(player1));
-//        left_panel.setLayout(new BoxLayout(left_panel, BoxLayout.Y_AXIS));
-        left_panel.setPreferredSize(new Dimension(200, 100));
-        left_panel.setBackground(Color.GRAY);
 
 
         // MAIN -> FRAME
