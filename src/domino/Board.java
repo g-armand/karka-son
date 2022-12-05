@@ -1,5 +1,6 @@
 package domino;
 
+
 public class Board {
     public Tile[][] tiles = new Tile[3][3];
 
@@ -10,7 +11,6 @@ public class Board {
                 this.tiles[i][j] = new EmptyTile();
             }
         }
-        this.tiles[1][1] = new Tile();
     }
 
     public void addTile(Tile t, int x, int y){
@@ -162,7 +162,6 @@ public class Board {
     }
 
     public static Tile[][] increaseSizeOfBoard(Tile[][] tiles){
-        System.out.println("shape is " + tiles.length + " " + tiles[0].length);
         Tile[][] tilesUpdated = new Tile[tiles.length+2][tiles[0].length+2];
         for(int i = 0; i<tiles.length+2; i++){
             for(int j = 0; j<tiles[0].length+2; j++){
@@ -178,16 +177,5 @@ public class Board {
         return tilesUpdated;
     }
 
-    public int countPoints(int x, int y){
-        Tile[][] extendedBoard = increaseSizeOfBoard(this.tiles);
-        x++;
-        x++;
-        y++;
-        y++;
-        return Tile.sumSides(extendedBoard[x][y], extendedBoard[x-1][y], "north")
-             + Tile.sumSides(extendedBoard[x][y], extendedBoard[x+1][y], "south")
-             + Tile.sumSides(extendedBoard[x][y], extendedBoard[x][y+1], "east")
-             + Tile.sumSides(extendedBoard[x][y], extendedBoard[x][y-1], "west");
-    }
 
 }
