@@ -76,11 +76,11 @@ public interface KarkasonTileTemplate {
             {'.', 'f', 't', 'f', '.'}};
 
     static char[][] ANGLE_TRACK_CITY_BIG =
-        {{'.', 'c', 'c', 'c', '.'},
-        {'c', 'c', 'f', 'f', 'f'},
-        {'c', 'f', 't', 't', 't'},
-        {'c', 'f', 't', 'f', 'f'},
-        {'.', 'f', 't', 'f', '.'}};
+            {{'.', 'c', 'c', 'c', '.'},
+            {'c', 'c', 'f', 'f', 'f'},
+            {'c', 'f', 't', 't', 't'},
+            {'c', 'f', 't', 'f', 'f'},
+            {'.', 'f', 't', 'f', '.'}};
 
     static char[][] ANGLE_TRACK_CITY_BIG_SPECIAL =
             {{'S', 'c', 'c', 'c', '.'},

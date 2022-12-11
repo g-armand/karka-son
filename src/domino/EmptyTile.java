@@ -5,7 +5,7 @@ public class EmptyTile extends Tile{
         super();
         for(int i = 0; i<this.rows; i++){
             for(int j = 0; j<this.rows; j++) {
-                this.content[i][j] = '.';
+                this.content[i][j] = new Cell('.');
             }
         }
     }

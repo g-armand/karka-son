@@ -21,7 +21,7 @@ public class Tile_GUI extends JPanel implements MouseListener {
 
         for (int i = 0; i < t.rows; i++) {
             for (int j = 0; j < t.rows; j++) {
-                JLabel element = new JLabel(String.valueOf(t.content[i][j]), SwingConstants.CENTER); // place number in the center of a case
+                JLabel element = new JLabel(String.valueOf(t.content[i][j].getChar()), SwingConstants.CENTER); // place number in the center of a case
                 element.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 8));
                 element.setBorder(border); // might be deleted later
                 this.add(element);
@@ -33,6 +33,7 @@ public class Tile_GUI extends JPanel implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         DominoFrame.left_panel.remove(this);
         DominoFrame.left_panel.revalidate();
+        this.setPreferredSize(new Dimension(40, 40));
         DominoFrame.board.add(this);
         DominoFrame.board.revalidate();
 //        this.setBackground(Color.CYAN);

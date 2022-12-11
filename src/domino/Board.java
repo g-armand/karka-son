@@ -34,12 +34,12 @@ public class Board {
     /*
     might be deleted later
      */
-    public static String printableBoard(Tile[][] board){
+    public static String printableBoard(Tile[][] board, boolean showOwnership){
         String res = "";
         for(Tile[] line: board){
             for(int lineIndex = 0; lineIndex<5; lineIndex++){
                 for(Tile tile: line) {
-                    res += tile.getLine(lineIndex);
+                    res += tile.getLine(lineIndex, showOwnership);
                 }
                 res += "\n";
             }
@@ -161,6 +161,20 @@ public class Board {
         return boundaryIndex;
     }
 
+    public static Cell[][] flattenBoard(Tile[][] board){
+        Cell[][] flattenedTilesBoard = new Cell[board.length*5][board[0].length*5];
+        for(int boardXposition=0; boardXposition<board.length; boardXposition++){
+            for(int boardYposition=0; boardYposition<board[0].length; boardYposition++){
+                for(int tileXposition=0; tileXposition<5; tileXposition++){
+                    for(int tileYposition=0; tileYposition<5; tileYposition++){
+                        flattenedTilesBoard[boardXposition*5+tileXposition][boardYposition*5+tileYposition] = board[boardXposition][boardYposition].content[tileXposition][tileYposition];
+                    }
+                }
+            }
+        }
+        return flattenedTilesBoard;
+    }
+
     public static Tile[][] increaseSizeOfBoard(Tile[][] tiles){
         Tile[][] tilesUpdated = new Tile[tiles.length+2][tiles[0].length+2];
         for(int i = 0; i<tiles.length+2; i++){
@@ -178,4 +192,5 @@ public class Board {
     }
 
 
+    //is not meant to be used
 }

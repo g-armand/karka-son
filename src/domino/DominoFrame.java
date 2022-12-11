@@ -9,26 +9,32 @@ public class DominoFrame extends JFrame {
     String player1;
     String player2;
 
-    JPanel main_panel = new JPanel();
-    JPanel menu_panel = new JPanel();
-    static LeftPanelGUI left_panel = new LeftPanelGUI();
-    static Background board = new Background();
+    JPanel main_panel;
+    JPanel menu_panel;
+    static LeftPanelGUI left_panel;
+    static Background board;
+
+    int playerTurnIndex;
+    Player[] playerList;
+    public DominoFrame(Player[] playerList) {
+        this.playerTurnIndex = 0;
+        this.playerList = playerList;
 
 
-    public DominoFrame(String player1, String player2) {
-
+        this.main_panel = new JPanel();
+        this.menu_panel = new JPanel();
+        left_panel = new LeftPanelGUI();
+        board = new Background();
+        KarkasonBoard karkasonBoard = new KarkasonBoard();
+        board.add(new clsCanvasPanel(karkasonBoard.tiles));
 
         // GENERAL
-
         this.setTitle("*DoM1No$aM1Gø$*");
         this.setSize(800, 800);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // finish process when the window is closed
 
-        this.player1 = player1;
-        this.player2 = player2;
 
         // BUTTONS
-
         MenuButton exit = new MenuButton("EXIT GAME");
         exit.addActionListener(e -> System.exit(0));
 
@@ -59,6 +65,31 @@ public class DominoFrame extends JFrame {
         this.setVisible(true);
 
 //        this.pack(); // adjust the window to the size of content (has to be used in the end)
+
+    }
+
+
+    public class LeftPanelGUI extends JPanel {
+
+        public LeftPanelGUI(){
+
+            MenuButton add_button = new MenuButton("PICK A TILE");
+            add_button.addActionListener(e -> {
+                Tile_GUI tile = new Tile_GUI(new KarkasonTile());
+                this.add(tile);
+                this.revalidate();
+            });
+
+            JLabel name = new JLabel(DominoFrame.this.playerList[playerTurnIndex].name);
+
+            name.setBackground(Color.cyan);
+            this.add(name);
+
+            this.setPreferredSize(new Dimension(200, 100));
+            this.setBackground(Color.GRAY);
+            this.add(add_button);
+        }
+
 
     }
 

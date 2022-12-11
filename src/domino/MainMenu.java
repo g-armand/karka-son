@@ -6,8 +6,8 @@ import java.awt.*;
 
 public class MainMenu extends JFrame {
 
-    static String player1;
-    static String player2;
+    Player[] playerList;
+
 
     public MainMenu(){
 
@@ -28,16 +28,15 @@ public class MainMenu extends JFrame {
         JLabel name = new JLabel("PLAYER 1:");
         JLabel name2 = new JLabel("PLAYER 2");
 
-        MenuButton submit = new MenuButton("SUBMIT");
-        submit.addActionListener(e -> {
-            player1 = name_field.getText();
-            player2 = name_field.getText();
-            submit.setEnabled(false);
-        });
 
-        MenuButton start = new MenuButton("START");
+        MenuButton start = new MenuButton("DOMINO");
         start.addActionListener(e -> {
-            new DominoFrame(player1, player2);
+
+//            this.playerList = new Player[]{new Player(name_field.getText()),
+//                                           new Player(name_field2.getText())};
+            Player[] playerList = new Player[]{new Player(name_field.getText()),
+                                           new Player(name_field2.getText())};
+            new DominoFrame(playerList);
             main_menu.setVisible(false);
         });
 
@@ -51,7 +50,6 @@ public class MainMenu extends JFrame {
         set_name.setLayout(new FlowLayout());
 
         main_menu.add(set_name);
-        main_menu.add(submit);
         main_menu.add(start);
         main_menu.add(exit);
 

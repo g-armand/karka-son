@@ -3,7 +3,9 @@ import domino.*;
 public class MainTest {
 
     public static void main(String[] args) {
-        MainMenu menu = new MainMenu();
+//        MainMenu menu = new MainMenu();
+//        Jeu jeu = new Jeu(2, 72);
+//        jeu.play("karkason");
     }
 
     public static void boardTest(){
@@ -12,12 +14,12 @@ public class MainTest {
 
         while(b.tiles.length !=3){
             b.addTile(new Tile(),1,0);
-            System.out.println(Board.printableBoard(b.tiles));
+            System.out.println(Board.printableBoard(b.tiles, false));
         }
 
         while(b.tiles.length !=5){
             b.addTile(new Tile(),1,2);
-            System.out.println(Board.printableBoard(b.tiles));
+            System.out.println(Board.printableBoard(b.tiles, false));
         }
 
         b.addTile(new Tile(), 0,0);
@@ -26,14 +28,14 @@ public class MainTest {
         System.out.println(b);
         Tile[][] newTileMatrix = b.tiles;
         newTileMatrix = Board.trimBoard(newTileMatrix);
-        System.out.println(Board.printableBoard(newTileMatrix));
+        System.out.println(Board.printableBoard(newTileMatrix, false));
 
     }
 
     public static void blyadstvo (){
         System.out.println("Блядство");
-        Jeu domino = new Jeu(2,20);
-        domino.playDomino();
+        Jeu game = new Jeu(2,20);
+        game.play("domino");
     }
 
     public static void testTourner() {
@@ -52,31 +54,32 @@ public class MainTest {
         Tile testTuile = new Tile();
         Tile othertestTuile = new Tile();
 
-        testTuile.content[0][1] = '1';
-        testTuile.content[4][1] = '1';
-        testTuile.content[0][2] = '2';
-        testTuile.content[4][2] = '2';
-        testTuile.content[0][3] = '3';
-        testTuile.content[4][3] = '3';
-        testTuile.content[1][0] = '4';
-        testTuile.content[1][4] = '4';
-        testTuile.content[2][0] = '5';
-        testTuile.content[2][4] = '5';
-        testTuile.content[3][0] = '6';
-        testTuile.content[3][4] = '6';
+        testTuile.content[0][1] = new Cell('1');
+        testTuile.content[4][1] = new Cell('1');
+        testTuile.content[0][2] = new Cell('2');
+        testTuile.content[4][2] = new Cell('2');
+        testTuile.content[0][3] = new Cell('3');
+        testTuile.content[4][3] = new Cell('3');
+        testTuile.content[1][0] = new Cell('4');
+        testTuile.content[1][4] = new Cell('4');
+        testTuile.content[2][0] = new Cell('5');
+        testTuile.content[2][4] = new Cell('5');
+        testTuile.content[3][0] = new Cell('6');
+        testTuile.content[3][4] = new Cell('6');
 
-        othertestTuile.content[0][1] = '1';
-        othertestTuile.content[4][1] = '1';
-        othertestTuile.content[0][2] = '2';
-        othertestTuile.content[4][2] = '2';
-        othertestTuile.content[0][3] = '3';
-        othertestTuile.content[4][3] = '3';
-        othertestTuile.content[1][0] = '4';
-        othertestTuile.content[1][4] = '4';
-        othertestTuile.content[2][0] = '5';
-        othertestTuile.content[2][4] = '5';
-        othertestTuile.content[3][0] = '6';
-        othertestTuile.content[3][4] = '6';
+        othertestTuile.content[0][1] = new Cell('1');
+        othertestTuile.content[4][1] = new Cell('1');
+        othertestTuile.content[0][2] = new Cell('2');
+        othertestTuile.content[4][2] = new Cell('2');
+        othertestTuile.content[0][3] = new Cell('3');
+        othertestTuile.content[4][3] = new Cell('3');
+        othertestTuile.content[1][0] = new Cell('4');
+        othertestTuile.content[1][4] = new Cell('4');
+        othertestTuile.content[2][0] = new Cell('5');
+        othertestTuile.content[2][4] = new Cell('5');
+        othertestTuile.content[3][0] = new Cell('6');
+        othertestTuile.content[3][4] = new Cell('6');
+
 
         System.out.println(testTuile.joinable(othertestTuile, "north"));
         System.out.println(testTuile.joinable(othertestTuile, "south"));
