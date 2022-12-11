@@ -13,7 +13,7 @@ public class Board {
         }
     }
 
-    public void addTile(Tile t, int x, int y){
+    public boolean addTile(Tile t, int x, int y){
         tilesTotal ++;
         //tilesUpdated is the future version of this.tiles
         Tile[][] tilesUpdated = increaseSizeOfBoard(this.tiles);
@@ -28,7 +28,9 @@ public class Board {
         if(isUsable(t, tilesUpdatedTemp, x , y)){
             tilesUpdated[x-1][y-1] = t;
             this.tiles = tilesUpdated;
+            return true;
         }
+        return false;
     }
 
     /*
@@ -89,10 +91,10 @@ public class Board {
      */
     public static Tile[][] trimBoard(Tile[][] tiles){
         //define boundary indexes
-        int startX = findBoundary(tiles, "north");
-        int endX = findBoundary(tiles, "south");
-        int startY = findBoundary(tiles, "west");
-        int endY = findBoundary(tiles, "east");
+        int startX = findBoundary(tiles, "north")-1;
+        int endX = findBoundary(tiles, "south")+1;
+        int startY = findBoundary(tiles, "west")-1;
+        int endY = findBoundary(tiles, "east")+1;
 
         //create new Tile matrix
         Tile[][] tilesUpdated = new Tile[endX-startX+1][endY-startY+1];
@@ -127,9 +129,8 @@ public class Board {
             boundaryIndex = board.length-1;
             while(stillEmpty){
                 for(int i = board.length-1; i>0; i--){
-                    if (!(board[boundaryIndex][i] instanceof EmptyTile)) {
-                        stillEmpty = false;
-                    }
+                    if (!(board[boundaryIndex][i] instanceof EmptyTile)) stillEmpty = false;
+
                 }
                 if(stillEmpty){
                     boundaryIndex--;

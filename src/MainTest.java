@@ -3,7 +3,7 @@ import domino.*;
 public class MainTest {
 
     public static void main(String[] args) {
-//        MainMenu menu = new MainMenu();
+        MainMenu menu = new MainMenu();
 //        Jeu jeu = new Jeu(2, 72);
 //        jeu.play("karkason");
     }

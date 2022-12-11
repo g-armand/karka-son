@@ -34,8 +34,8 @@ public class MainMenu extends JFrame {
 
 //            this.playerList = new Player[]{new Player(name_field.getText()),
 //                                           new Player(name_field2.getText())};
-            Player[] playerList = new Player[]{new Player(name_field.getText()),
-                                           new Player(name_field2.getText())};
+            Player[] playerList = new Player[]{new Player(name_field.getText()+" 1st player"),
+                                           new Player(name_field2.getText()+" 2nd player")};
             new DominoFrame(playerList);
             main_menu.setVisible(false);
         });
