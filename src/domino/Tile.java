@@ -11,21 +11,21 @@ public class Tile {
     public boolean joinable(Tile other, String orientation){
         boolean result = false;
         if(orientation.equals("north")) {
-            result = (this.content[0][1].getChar() == other.content[4][1].getChar()) &&
-                    (this.content[0][2].getChar() == other.content[4][2].getChar()) &&
-                    (this.content[0][3].getChar() == other.content[4][3].getChar());
+            result = (Character.toLowerCase(this.content[0][1].getChar()) == Character.toLowerCase(other.content[4][1].getChar())) &&
+                    (Character.toLowerCase(this.content[0][2].getChar()) == Character.toLowerCase(other.content[4][2].getChar())) &&
+                    (Character.toLowerCase(this.content[0][3].getChar()) == Character.toLowerCase(other.content[4][3].getChar()));
         } else if (orientation.equals("south")) {
-            result = (other.content[0][1].getChar() == this.content[4][1].getChar()) &&
-                    (other.content[0][2].getChar() == this.content[4][2].getChar()) &&
-                    (other.content[0][3].getChar() == this.content[4][3].getChar());
+            result = (Character.toLowerCase(other.content[0][1].getChar()) == Character.toLowerCase(this.content[4][1].getChar())) &&
+                    (Character.toLowerCase(other.content[0][2].getChar()) == Character.toLowerCase(this.content[4][2].getChar())) &&
+                    (Character.toLowerCase(other.content[0][3].getChar()) == Character.toLowerCase(this.content[4][3].getChar()));
         } else if (orientation.equals("west")) {
-            result = (this.content[1][0].getChar() == other.content[1][4].getChar()) &&
-                    (this.content[2][0].getChar() == other.content[2][4].getChar()) &&
-                    (this.content[3][0].getChar() == other.content[3][4].getChar());
+            result = (Character.toLowerCase(this.content[1][0].getChar()) == Character.toLowerCase(other.content[1][4].getChar())) &&
+                    (Character.toLowerCase(this.content[2][0].getChar()) == Character.toLowerCase(other.content[2][4].getChar())) &&
+                    (Character.toLowerCase(this.content[3][0].getChar()) == Character.toLowerCase(other.content[3][4].getChar()));
         } else if (orientation.equals("east")) {
-            result = (other.content[1][0].getChar() == this.content[1][4].getChar()) &&
-                    (other.content[2][0].getChar() == this.content[2][4].getChar()) &&
-                    (other.content[3][0].getChar() == this.content[3][4].getChar());
+            result = (Character.toLowerCase(other.content[1][0].getChar()) == Character.toLowerCase(this.content[1][4].getChar())) &&
+                    (Character.toLowerCase(other.content[2][0].getChar()) == Character.toLowerCase(this.content[2][4].getChar())) &&
+                    (Character.toLowerCase(other.content[3][0].getChar()) == Character.toLowerCase(this.content[3][4].getChar()));
         } else {
             System.out.println("wrong orientation");
         }
