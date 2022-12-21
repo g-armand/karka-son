@@ -5,6 +5,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.*;
 
 public class DominoFrame extends JFrame {
 
@@ -13,6 +14,7 @@ public class DominoFrame extends JFrame {
     LeftPanelGUI left_panel;
     Background backgroundImage;
     int playerTurnIndex;
+    int turns;
     Player[] playerList;
     GridBoardPanel tilesGrid;
     DominoBoard dominoBoard;
@@ -79,13 +81,54 @@ public class DominoFrame extends JFrame {
         }
         menu_panel.add(scoresPanel, BorderLayout.CENTER);
         playerTurnIndex++;
+        turns++;
         if(playerTurnIndex%playerList.length==0){
             playerTurnIndex=0;
         }
 
         JLabel name = new JLabel("IT'S "+DominoFrame.this.playerList[playerTurnIndex].name+"'S TURN !");
-        name.setBackground(Color.cyan);
+//        name.setBackground(Color.cyan);
         scoresPanel.add(name);
+
+        var ref = new Object() {
+            int i;
+        };
+
+        // FINISH GAME WHEN EVERY PLAYER HAS HAD allTiles number of TILES
+        int allTiles = 1;
+
+        ArrayList <Integer> points = new ArrayList<>();
+        Map <Integer, String> allpoints = new HashMap<>();
+
+        if(turns == playerList.length*allTiles) {
+            for(ref.i = 0; ref.i < playerList.length; ref.i++) {
+                allpoints.put(playerList[ref.i].points, playerList[ref.i].name);
+                points.add(playerList[ref.i].points);
+            }
+
+            Integer winner = Collections.max(points);
+            String winnerName = allpoints.get(winner);
+
+            Object[] options = {"RESTART", "MAIN MENU"};
+            int n = JOptionPane.showOptionDialog(this,
+                    "GAME OVER. " + winnerName + " WINS!",
+                    "GAME OVER",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[1]);
+            if (n == 0){
+                this.dispose();
+                new DominoFrame(playerList);
+            }
+            if (n == 1){
+                new MainMenu();
+                this.dispose();
+            }
+
+        }
+
     }
 
     public class LeftPanelGUI extends JPanel {
@@ -203,9 +246,6 @@ public class DominoFrame extends JFrame {
         public void mouseClicked(MouseEvent e) {
             if(this.y!=-1 || this.x!=-1){
 
-                var ref = new Object() {
-                    int i;
-                };
 
                 int horizontalOffset = Board.findBoundary(DominoFrame.this.dominoBoard.tiles,  "west") -1;
                 int verticalOffset = Board.findBoundary(DominoFrame.this.dominoBoard.tiles, "north") -1;
