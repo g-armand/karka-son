@@ -191,4 +191,8 @@ public class Board {
         }
         return tilesUpdated;
     }
+
+    public int countPoints(int x, int y){
+        return 0;
+    }
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class KarkasonBoard extends Board implements KarkasonTileTemplate{
+public class KarkasonBoard extends Board{
 
     public KarkasonBoard(){
         super();
