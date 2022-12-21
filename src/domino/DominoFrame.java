@@ -161,7 +161,7 @@ public class DominoFrame extends JFrame {
                 }
             }
 
-//            this.setPreferredSize(new Dimension(400+getComponentCount()*10, 400+getComponentCount()*10));
+            this.setPreferredSize(new Dimension(100/getComponentCount()+800, 100/getComponentCount()+800));
         }
     }
 
