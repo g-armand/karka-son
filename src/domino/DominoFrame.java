@@ -150,6 +150,7 @@ public class DominoFrame extends JFrame {
 
     public class GridBoardPanel extends JPanel {
         public GridBoardPanel(Tile[][] tab) {
+            this.setBackground(new Color(0,0,0,0));
             Tile[][] trimmedBoard = Board.trimBoard(tab);
             int intRows = trimmedBoard.length;
             int intCols = trimmedBoard[0].length;
@@ -176,8 +177,10 @@ public class DominoFrame extends JFrame {
             this.x = x;
             this.y = y;
             this.setLayout(new GridLayout(5, 5, 0, 0));
-            this.setPreferredSize(new Dimension(150, 150));
+            this.setPreferredSize(new Dimension(75, 75));
             this.addMouseListener(this);
+            this.setBackground(new Color(200,200,200,240));
+
 
             if(!(t instanceof EmptyTile)){
                 Border border = BorderFactory.createBevelBorder(BevelBorder.RAISED);
@@ -190,6 +193,8 @@ public class DominoFrame extends JFrame {
                         this.add(element);
                     }
                 }
+            } else {
+                this.setBackground(new Color(0,0,0,0));
             }
 
         }
