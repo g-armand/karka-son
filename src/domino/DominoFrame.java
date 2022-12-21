@@ -18,6 +18,8 @@ public class DominoFrame extends JFrame {
     Player[] playerList;
     GridBoardPanel tilesGrid;
     DominoBoard dominoBoard;
+
+    Tile[] globalBag;
     public DominoFrame(Player[] playerList) {
 
         this.playerTurnIndex = 0;
@@ -30,7 +32,10 @@ public class DominoFrame extends JFrame {
         this.dominoBoard = new DominoBoard();
         this.tilesGrid = new GridBoardPanel(dominoBoard.tiles);
         this.backgroundImage.add(tilesGrid);
-
+        this.globalBag = new DominoTile[28];
+        for(int i = 0; i<28; i++){
+            this.globalBag[i] = new DominoTile();
+        }
 
         // GENERAL
         this.setTitle("*DoM1No$aM1Gø$*");
