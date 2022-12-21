@@ -59,8 +59,8 @@ public class Jeu {
 
         while(this.tileBag.size() > 0){
             Tile pickedTile =  pickTile();
-            System.out.println("The board current state is:\n" + Board.printableBoard(Board.increaseSizeOfBoard(Board.trimBoard(this.gameBoard.tiles)), true));
-            System.out.println("The board current state is:\n" + Board.printableBoard(Board.increaseSizeOfBoard(Board.trimBoard(this.gameBoard.tiles)), false));
+            System.out.println("The board current state is:\n" + Board.printableBoard(Board.trimBoard(this.gameBoard.tiles), true));
+            System.out.println("The board current state is:\n" + Board.printableBoard(Board.trimBoard(this.gameBoard.tiles), false));
             System.out.println("You picked this tile:\n" + pickedTile);
 
             if(this.gameBoard.isUsable(pickedTile)){
@@ -99,8 +99,8 @@ public class Jeu {
                     System.out.println("wanna place minion ?");
                     String input = actionScanner.nextLine();
                     if(input.matches("yes|y")){
-                        System.out.println("The board current state is:\n" + Board.printableBoard(Board.increaseSizeOfBoard(Board.trimBoard(this.gameBoard.tiles)), true));
-                        System.out.println("The board current state is:\n" + Board.printableBoard(Board.increaseSizeOfBoard(Board.trimBoard(this.gameBoard.tiles)), false));
+                        System.out.println("The board current state is:\n" + Board.printableBoard(Board.trimBoard(this.gameBoard.tiles), true));
+                        System.out.println("The board current state is:\n" + Board.printableBoard(Board.trimBoard(this.gameBoard.tiles), false));
 
                         //get coordinates
                         while(true){
@@ -110,22 +110,29 @@ public class Jeu {
                                 break;
                             }
                         }
+                        horizontalOffset = Board.findBoundary(this.gameBoard.tiles, "west")-1;
+                        verticalOffset = Board.findBoundary(this.gameBoard.tiles, "north")-1;
                         x = Integer.parseInt(input.split("\\s")[0]) + verticalOffset*5;
                         y = Integer.parseInt(input.split("\\s")[1]) + horizontalOffset*5;
                         this.gameBoard.tiles[x/5][y/5].content[x%5][y%5].setOwner(1);
                         ((KarkasonBoard) this.gameBoard).updateTerritoriesForEach();
+                        System.out.println("The board current state is:\n" + Board.printableBoard(Board.trimBoard(this.gameBoard.tiles), true));
+                        int pointsScored = ((KarkasonBoard) this.gameBoard).getScoreOfTerritory(x, y);
+                        System.out.println("points scored: " + pointsScored);
                     }
+                } else if(game.matches("domino")){
+                    //once the tile placed, we display board and update scores
+                System.out.println(Board.printableBoard(Board.trimBoard(this.gameBoard.tiles), false));
+                if(isPlayer1Turn){
+                    this.player1.points += ((DominoBoard) this.gameBoard).countPoints(x, y);
+                } else {
+                    this.player2.points += ((DominoBoard) this.gameBoard).countPoints(x, y);
                 }
-                //once the tile placed, we display board and update scores
-//                System.out.println(this.board.toString(Board.trimBoard(this.board.tiles)));
-//                if(isPlayer1Turn){
-//                    this.player1.points += this.gameBoard.countPoints(x, y);
-//                } else {
-//                    this.player2.points += this.gameBoard.countPoints(x, y);
-//                }
-//                isPlayer1Turn = !isPlayer1Turn;
-//                System.out.println("Player 1 score = " + this.player1.points);
-//                System.out.println("Player 2 score = " + this.player2.points);
+                isPlayer1Turn = !isPlayer1Turn;
+                System.out.println("Player 1 score = " + this.player1.points);
+                System.out.println("Player 2 score = " + this.player2.points);
+
+                }
 
             }
         }
