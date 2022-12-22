@@ -1,10 +1,14 @@
 package domino;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class DominoFrame extends JFrame {
@@ -50,18 +54,18 @@ public class DominoFrame extends JFrame {
         MenuButton mainmenu = new MenuButton("MAIN MENU");
         mainmenu.addActionListener(e -> {
             new MainMenu();
-            this.setVisible(false);
+            this.dispose();
         });
 
 
 
         // MENU
-        menu_panel.setBackground(Color.black);
+        menu_panel.setBackground(new Color(255, 255, 255, 200));
         menu_panel.setLayout(new BorderLayout());
-        menu_panel.setPreferredSize(new Dimension(800, 60));
+        menu_panel.setPreferredSize(new Dimension(800, 70));
         menu_panel.add(exit, BorderLayout.WEST);
         menu_panel.add(mainmenu, BorderLayout.EAST);
-        updateScores(0,0);
+        updateScores(0,0);       // why exactly is it here?
 
         // MAIN -> FRAME
         main_panel.setSize(800, 800);
@@ -76,7 +80,7 @@ public class DominoFrame extends JFrame {
 
     public void updateScores(int x, int y){
         JPanel scoresPanel = new JPanel();
-        scoresPanel.setLayout(new GridLayout(playerList.length+1, 1, 0, 0));
+        scoresPanel.setLayout(new GridLayout(playerList.length+1, 2, 0, 0));
         playerList[playerTurnIndex].points = playerList[playerTurnIndex].points + dominoBoard.countPoints(x,y);
         for(Player player: playerList){
             scoresPanel.add(new JLabel(player.name+" score: " +player.points +"\n"));
@@ -92,7 +96,6 @@ public class DominoFrame extends JFrame {
         }
 
         JLabel name = new JLabel("IT'S "+DominoFrame.this.playerList[playerTurnIndex].name+"'S TURN !");
-//        name.setBackground(Color.cyan);
         scoresPanel.add(name);
 
         var ref = new Object() {
@@ -100,7 +103,7 @@ public class DominoFrame extends JFrame {
         };
 
         // FINISH GAME WHEN EVERY PLAYER HAS HAD allTiles number of TILES
-        int allTiles = 1;
+        int allTiles = 3;
 
         ArrayList <Integer> points = new ArrayList<>();
         Map <Integer, String> allpoints = new HashMap<>();
@@ -141,36 +144,28 @@ public class DominoFrame extends JFrame {
         public Tile tileContainedOnLeftPanel;
         public MenuButton add_button;
 
-        public LeftPanelGUI(){
-            var ref = new Object() {
-                int i;
-            };
+        public LeftPanelGUI() {
 
             add_button = new MenuButton("PICK A TILE");
+            add_button.setPreferredSize(new Dimension(200, 100));
             add_button.addActionListener(e -> {
+                add_button.setEnabled(false);
                 this.tileContainedOnLeftPanel = new DominoTile();
                 Tile_GUI tile = new Tile_GUI(this.tileContainedOnLeftPanel, -1, -1);
                 this.add(tile);
                 tile.setPreferredSize(new Dimension(200, 200));
                 this.revalidate();
-                if(!dominoBoard.isUsable(tileContainedOnLeftPanel)){
+                if (!dominoBoard.isUsable(tileContainedOnLeftPanel)) {
                     JOptionPane.showMessageDialog(this, "Oops, this tile is not joinable anywhere, try another one");
-                    playerList[playerTurnIndex].tiles.add(tile);
+                    add_button.setEnabled(true);
                     this.revalidate();
-                }
-//                if(this.getComponentCount()>2){
-//                    add_button.setEnabled(false);}
-                if(playerList[playerTurnIndex].tiles != null){
-                    for (ref.i =0; ref.i <playerList[playerTurnIndex].tiles.size(); ref.i++) {
-                        add(playerList[playerTurnIndex].tiles.get(ref.i));
-                        this.revalidate();
-                    }
                 }
             });
 
-            JButton spinButton = new JButton("SPIN");
+            JButton spinButton = new MenuButton("SPIN");
+            spinButton.setPreferredSize(new Dimension(200, 100));
             spinButton.addActionListener(e -> {
-                if(this.getComponentCount()>2){
+                if (this.getComponentCount() > 2) {
                     this.tileContainedOnLeftPanel.spin("droite");
                     Tile_GUI tile = new Tile_GUI(this.tileContainedOnLeftPanel, -1, -1);
                     this.remove(2);
@@ -180,12 +175,13 @@ public class DominoFrame extends JFrame {
                 }
             });
 
-            setPreferredSize(new Dimension(250, 100));
-            setBackground(Color.GRAY);
+            setPreferredSize(new Dimension(250, 700));
+            setBackground(new Color(255, 255, 255, 200));
+//            this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             add(add_button);
             add(spinButton);
-        }
 
+        }
 
         public void removeLastTile(){
             if(this.getComponentCount()>2){
@@ -210,6 +206,7 @@ public class DominoFrame extends JFrame {
             }
 
             this.setPreferredSize(new Dimension(100/getComponentCount()+800, 100/getComponentCount()+800));
+            // need to be adjusted (causes conflict with tuile gui size)
         }
     }
 
@@ -236,8 +233,9 @@ public class DominoFrame extends JFrame {
                 for (int i = 0; i < t.rows; i++) {
                     for (int j = 0; j < t.rows; j++) {
                         JLabel element = new JLabel(String.valueOf(t.content[i][j].getChar()), SwingConstants.CENTER); // place number in the center of a case
-                        element.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 8));
-                        element.setBorder(border); // might be deleted later
+                        element.setFont(new Font(Font.SERIF, Font.BOLD, 25));
+                        element.setForeground(new Color(43,10,7,250));
+//                        element.setBorder(border); // might be deleted later
                         this.add(element);
                     }
                 }
@@ -262,6 +260,8 @@ public class DominoFrame extends JFrame {
                     backgroundImage.add(tilesGrid);
                     backgroundImage.revalidate();
                     updateScores(x+verticalOffset, y+horizontalOffset);
+                    left_panel.add_button.setEnabled(true);
+
                 }
             }
         }

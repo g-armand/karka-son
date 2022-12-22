@@ -15,11 +15,6 @@ public class Background extends JPanel {
         g.drawImage(background, 0, 0, getWidth(), getHeight(), this); // image scaled
     }
 
-//    @Override
-//    public Dimension getPreferredSize() {
-//        return background == null ? new Dimension(400, 300): new Dimension(background.getWidth(null), background.getHeight(null));
-//    }
-
     public Background(){
         try {
             background = ImageIO.read(Background.class.getResource("/resources/images/wood.png"));
