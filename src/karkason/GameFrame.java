@@ -241,7 +241,7 @@ public class GameFrame extends JFrame{
                 playTurn();
                 updateScores(0,0);
             }
-        };
+        }
         public void removeLastTile(){
             if(this.getComponentCount()>this.fullCapacity){
                 this.remove(this.fullCapacity);
@@ -376,28 +376,29 @@ public class GameFrame extends JFrame{
                 super("");
                 setPreferredSize(new Dimension(5, 5));
                 setColor(text);
+                setOpaque(true);
+                setBorderPainted(false);
                 flattenedX = x;
                 flattenedY = y;
             }
 
             public void setColor(String text){
                 if(text.matches("c|C")){
-                    setBackground(new Color(236, 179, 36));
-                }
+                    setBackground(new Color(236, 179, 36, 250));}
                 else if(text.matches("t")){
-                    setBackground(new Color(218, 121, 14));
+                    setBackground(new Color(218, 121, 14, 250));
                 }else if(text.matches("f")){
-                    setBackground(new Color(160, 210, 77));
+                    this.setBackground(new Color(160, 210, 77, 250));
                 }else if(text.matches("a")){
-                    setBackground(new Color(77, 99, 210));
+                    this.setBackground(new Color(77, 99, 210, 250));
                 }else if(text.matches("S")){
-                    setBackground(new Color(64, 222, 204));
+                    setBackground(new Color(64, 222, 204, 250));
                 }else if(text.matches("1")){
-                    setBackground(new Color(87, 85, 85));
+                    setBackground(new Color(87, 85, 85, 250));
                 } else if(text.matches("0")){
-                    setBackground(new Color(197, 197, 203));
+                    setBackground(new Color(197, 197, 203, 250));
                 } else if(text.matches("\\s")){
-                    setBackground(new Color(197, 197, 203));
+                    setBackground(new Color(197, 197, 203, 250));
                 }else{
                     setText(text);
                 }
