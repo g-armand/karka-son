@@ -1,4 +1,4 @@
-package domino;
+package karkason;
 
 public class Cell {
 

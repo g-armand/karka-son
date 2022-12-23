@@ -1,6 +1,9 @@
-package domino;
+package karkason;
 
-public class EmptyTile extends Tile{
+import karkason.Tile;
+import karkason.Cell;
+
+public class EmptyTile extends Tile {
     public EmptyTile(){
         super();
         for(int i = 0; i<this.rows; i++){

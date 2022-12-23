@@ -1,4 +1,4 @@
-package domino;
+package karkason;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,7 @@ public class MenuButton extends JButton {
         this.setAlignmentX(CENTER_ALIGNMENT);
         this.setAlignmentY(CENTER_ALIGNMENT);
         this.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
-//        this.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        this.setBorder(BorderFactory.createEtchedBorder());
 
     }
 

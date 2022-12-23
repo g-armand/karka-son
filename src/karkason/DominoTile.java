@@ -1,8 +1,8 @@
-package domino;
+package karkason;
 
 import java.util.Random;
 
-public class DominoTile extends Tile{
+public class DominoTile extends Tile {
     public DominoTile(){
         Random a = new Random();
         for (int i = 0; i<5; i++){

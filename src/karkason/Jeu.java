@@ -1,8 +1,8 @@
-package domino;
+package karkason;
+
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class Jeu {
 
@@ -50,7 +50,7 @@ public class Jeu {
             fillBag("karkason");
             this.gameBoard = new KarkasonBoard();
         } else{
-            fillBag("domino");
+            fillBag("karkason");
             this.gameBoard = new DominoBoard();
         }
 

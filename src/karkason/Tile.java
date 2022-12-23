@@ -1,6 +1,6 @@
-package domino;
+package karkason;
+
 import java.util.Objects;
-import java.util.Random;
 
 public class Tile {
 

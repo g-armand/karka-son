@@ -1,10 +1,12 @@
-package domino;
+package karkason;
 
-import java.util.ArrayList;
+import karkason.Board;
+import karkason.Cell;
+import karkason.KarkasonTile;
+
 import java.util.HashSet;
-import java.util.List;
 
-public class KarkasonBoard extends Board{
+public class KarkasonBoard extends Board {
 
     public KarkasonBoard(){
         super();
@@ -28,6 +30,9 @@ public class KarkasonBoard extends Board{
 
     public int getScoreOfTerritory(int x, int y){
         Cell[][] flattenedTiles = Board.flattenBoard(this.tiles);
+        if(flattenedTiles[x][y].getChar()=='.'){
+            System.out.println(flattenedTiles[x][y].getChar());
+        }
         int specialModifierFlagCounter = 0; //for cities only
         HashSet<int[]> visitedCoordinates = new HashSet<>();
         HashSet<int[]> tilesCoordinates = getTilesOfTerritory(x, y, flattenedTiles[x][y], flattenedTiles, visitedCoordinates);

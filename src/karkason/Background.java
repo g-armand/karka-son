@@ -1,4 +1,4 @@
-package domino;
+package karkason;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,11 +14,6 @@ public class Background extends JPanel {
         super.paintComponent(g);
         g.drawImage(background, 0, 0, getWidth(), getHeight(), this); // image scaled
     }
-
-//    @Override
-//    public Dimension getPreferredSize() {
-//        return background == null ? new Dimension(400, 300): new Dimension(background.getWidth(null), background.getHeight(null));
-//    }
 
     public Background(){
         try {

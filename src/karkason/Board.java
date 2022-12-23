@@ -1,4 +1,4 @@
-package domino;
+package karkason;
 
 
 public class Board {
@@ -90,6 +90,10 @@ public class Board {
     returns a Tile[][] with empty rows and columns removed
      */
     public static Tile[][] trimBoard(Tile[][] tiles){
+        //in case trimBoard is used from Board and not from KarkasonBoard or DominoBoard
+        if(tiles.length==3 && tiles[1][1] instanceof EmptyTile){
+            return tiles;
+        }
         //define boundary indexes
         int startX = findBoundary(tiles, "north")-1;
         int endX = findBoundary(tiles, "south")+1;
@@ -110,9 +114,6 @@ public class Board {
     returns the index of the first row ("west" "east") or column ("north" "south") that contains a not empty Tile
      */
     public static int findBoundary(Tile[][] board, String direction){
-        if(board.length==1){
-            return 0;
-        }
         boolean stillEmpty = true;
         int boundaryIndex;
         if(direction.matches("north")) {
@@ -124,6 +125,7 @@ public class Board {
                 if(stillEmpty){
                     boundaryIndex++;
                 }
+
             }
         } else if(direction.matches("south")) {
             boundaryIndex = board.length-1;

@@ -1,6 +1,6 @@
-package domino;
+package karkason;
 
-public class DominoBoard extends Board{
+public class DominoBoard extends Board {
     public DominoBoard(){
         super();
         this.tiles[1][1] = new DominoTile();

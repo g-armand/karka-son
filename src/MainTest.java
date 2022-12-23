@@ -1,4 +1,6 @@
-import domino.*;
+import karkason.*;
+import karkason.Board;
+import karkason.Cell;
 
 public class MainTest {
 
@@ -29,13 +31,12 @@ public class MainTest {
         Tile[][] newTileMatrix = b.tiles;
         newTileMatrix = Board.trimBoard(newTileMatrix);
         System.out.println(Board.printableBoard(newTileMatrix, false));
-
     }
 
     public static void blyadstvo (){
         System.out.println("Блядство");
         Jeu game = new Jeu(2,20);
-        game.play("domino");
+        game.play("karkason");
     }
 
     public static void testTourner() {
