@@ -405,14 +405,13 @@ public class GameFrame extends JFrame{
 
             public void setEnabled(boolean value){
                 if(!value){
-                    this.addActionListener(e ->{
-                        for( ActionListener al : this.getActionListeners() ) {
-                            this.removeActionListener( al );
-                        }
-                    });
+                    for( ActionListener al : this.getActionListeners() ) {
+                        this.removeActionListener( al );
+                    }
                 } else {
                     this.addActionListener(e ->{
                         updateScores(flattenedX, flattenedY);
+                        tilesGrid.setButtonsToValue(false);
                         while(!playerList[playerTurnIndex].isHuman){
                             playTurn();
                             updateScores(0,0);
