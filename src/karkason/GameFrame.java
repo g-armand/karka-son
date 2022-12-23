@@ -267,7 +267,7 @@ public class GameFrame extends JFrame{
             }
             setButtonsToValue(false);
             //            this.setPreferredSize(new Dimension(600, 600));
-            this.setPreferredSize(new Dimension(100/getComponentCount()+800, 100/getComponentCount()+800));
+            this.setPreferredSize(new Dimension(100/getComponentCount()+700, 100/getComponentCount()+700));
             // need to be adjusted (causes conflict with tuile gui size)
         }
 
@@ -320,7 +320,7 @@ public class GameFrame extends JFrame{
                 for (int i = 0; i < t.rows; i++) {
                     for (int j = 0; j < t.rows; j++) {
                         CellGUI element = new CellGUI(String.valueOf(t.content[i][j].getChar()), (x*5)+i, (y*5)+j); // place number in the center of a case
-                        element.setFont(new Font(Font.SERIF, Font.BOLD, 25));
+                        element.setFont(new Font(Font.SERIF, Font.BOLD, 15));
                         element.setForeground(new Color(43,10,7,250));
                         this.add(element);
                     }
@@ -378,6 +378,7 @@ public class GameFrame extends JFrame{
                 setColor(text);
                 setOpaque(true);
                 setBorderPainted(false);
+                setBorder(null);
                 flattenedX = x;
                 flattenedY = y;
             }
@@ -394,8 +395,10 @@ public class GameFrame extends JFrame{
                 }else if(text.matches("S")){
                     setBackground(new Color(64, 222, 204, 250));
                 }else if(text.matches("1")){
-                    setBackground(new Color(87, 85, 85, 250));
+                    setText(text);
+                    setBackground(new Color(197, 197, 203, 250));
                 } else if(text.matches("0")){
+                    setText(text);
                     setBackground(new Color(197, 197, 203, 250));
                 } else if(text.matches("\\s")){
                     setBackground(new Color(197, 197, 203, 250));
