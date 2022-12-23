@@ -23,7 +23,7 @@ public class ScenariosManager {
             DocumentBuilder XML_Constructeur = XML_Fabrique_Constructeur.newDocumentBuilder();
 
             Document XML_Document = XML_Constructeur.newDocument();
-            Element documentation = XML_Document.createElement(gameboard instanceof KarkasonBoard ? "karkason" : "karkason");
+            Element documentation = XML_Document.createElement(gameboard instanceof KarkasonBoard ? "karkason" : "domino");
             XML_Document.appendChild(documentation);
 
             Element parametersElement = XML_Document.createElement("Parameters");
@@ -36,13 +36,13 @@ public class ScenariosManager {
             documentation.appendChild(playersElement);
 
             Attr gameAttribut = XML_Document.createAttribute("Game");
-            gameAttribut.setValue(gameboard instanceof KarkasonBoard ? "karkason" : "karkason");
+            gameAttribut.setValue(gameboard instanceof KarkasonBoard ? "karkason" : "domino");
             parametersElement.setAttributeNode(gameAttribut);
             Attr gameAttributcopy = XML_Document.createAttribute("Game");
-            gameAttributcopy.setValue(gameboard instanceof KarkasonBoard ? "karkason" : "karkason");
+            gameAttributcopy.setValue(gameboard instanceof KarkasonBoard ? "karkason" : "domino");
             gameBoardElement.setAttributeNode(gameAttributcopy);
             Attr gameAttributcopycopy = XML_Document.createAttribute("Game");
-            gameAttributcopycopy.setValue(gameboard instanceof KarkasonBoard ? "karkason" : "karkason");
+            gameAttributcopycopy.setValue(gameboard instanceof KarkasonBoard ? "karkason" : "domino");
             globalBagElement.setAttributeNode(gameAttributcopycopy);
             Attr BoardXAttribut = XML_Document.createAttribute("BoardHeight");
             BoardXAttribut.setValue(String.valueOf(gameboard.tiles.length));
