@@ -50,7 +50,7 @@ public class Jeu {
             fillBag("karkason");
             this.gameBoard = new KarkasonBoard();
         } else{
-            fillBag("karkason");
+            fillBag("domino");
             this.gameBoard = new DominoBoard();
         }
 
@@ -59,7 +59,6 @@ public class Jeu {
 
         while(this.tileBag.size() > 0){
             Tile pickedTile =  pickTile();
-            System.out.println("The board current state is:\n" + Board.printableBoard(Board.trimBoard(this.gameBoard.tiles), true));
             System.out.println("The board current state is:\n" + Board.printableBoard(Board.trimBoard(this.gameBoard.tiles), false));
             System.out.println("You picked this tile:\n" + pickedTile);
 
