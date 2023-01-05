@@ -9,5 +9,5 @@ To play the games you need to:
       - **tar xvf Game && javac src\*.java && cd src**
   - run the following command to start the game with the UI:
       - **java MainTest dynamicUI**
-  - run the following comman to start a domino game in command line:
+  - run the following command to start a domino game in command line:
       - **java MainTest dynamicUI commandlines**
