@@ -1,5 +1,3 @@
-package karkason;
-
 public class Cell {
 
     private char content;

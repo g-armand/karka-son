@@ -1,5 +1,3 @@
-package karkason;
-
 import java.util.Objects;
 
 public class Tile {

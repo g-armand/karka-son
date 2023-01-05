@@ -1,8 +1,3 @@
-package karkason;
-
-import karkason.Tile;
-import karkason.Cell;
-
 public class EmptyTile extends Tile {
     public EmptyTile(){
         super();

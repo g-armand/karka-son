@@ -1,5 +1,3 @@
-package karkason;
-
 import java.awt.*;
 
 public class DominoFrame extends GameFrame {
@@ -10,6 +8,13 @@ public class DominoFrame extends GameFrame {
         main_panel.add(left_panel, BorderLayout.WEST);
         for(int i = 0; i<28; i++){
             this.globalBag[i] = new DominoTile();
+        }
+    }
+
+    public void fillBag(int bagSize){
+        this.globalBag = new KarkasonTile[bagSize]; //max 72
+        for(int i = 0; i<bagSize; i++) {
+            this.globalBag[i] = new KarkasonTile();
         }
     }
 
@@ -24,7 +29,7 @@ public class DominoFrame extends GameFrame {
     public void updateScores(int x, int y){
         if(!(x==0 && y==0)){
             int pointsScored = gameBoard.countPoints(x-1,y-1);
-            playerList[playerTurnIndex].points = playerList[playerTurnIndex].points + pointsScored;
+            playerList[playerTurnIndex].addPoints(pointsScored);
         }
         super.updateScores(0,0);
     }

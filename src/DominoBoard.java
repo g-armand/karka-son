@@ -1,5 +1,3 @@
-package karkason;
-
 public class DominoBoard extends Board {
     public DominoBoard(){
         super();

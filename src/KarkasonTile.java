@@ -1,10 +1,8 @@
-package karkason;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class KarkasonTile extends Tile{
+public class KarkasonTile extends Tile {
 
     KarkasonTileTemplate template = new KarkasonTileTemplate();
 
@@ -20,6 +18,7 @@ public class KarkasonTile extends Tile{
         ArrayList<char[][]> basicTiles;
         public KarkasonTileTemplate(){
             this.basicTiles = new ArrayList<>();
+            this.basicTiles.addAll(List.of(ANGLE_TRACK.clone(), ANGLE_TRACK.clone(), ANGLE_TRACK.clone(), STRAIGHT_TRACK.clone(),STRAIGHT_TRACK.clone(),STRAIGHT_TRACK.clone(),STRAIGHT_TRACK.clone(),CROSSING_TRACK.clone(),CROSSING_TRACK.clone(),CROSSING_TRACK.clone(),CROSSING_TRACK.clone(),CROSSING_TRACK.clone(),CROSSING_TRACK.clone(),CROSSING_TRACK.clone(),CROSSING_TRACK.clone(),CROSSING_TRACK.clone()));
             this.basicTiles.addAll(List.of(
                     ANGLE_TRACK.clone(), ANGLE_TRACK.clone(), ANGLE_TRACK.clone(), ANGLE_TRACK.clone(), ANGLE_TRACK.clone(), ANGLE_TRACK.clone(), ANGLE_TRACK.clone(), ANGLE_TRACK.clone(), ANGLE_TRACK.clone()
                     ,RIGHT_ANGLE_TRACK_CITY_SMALL.clone(), RIGHT_ANGLE_TRACK_CITY_SMALL.clone(), RIGHT_ANGLE_TRACK_CITY_SMALL.clone()

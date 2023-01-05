@@ -1,6 +1,3 @@
-package karkason;
-
-
 public class Board {
     public Tile[][] tiles = new Tile[3][3];
 

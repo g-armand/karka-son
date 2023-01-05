@@ -1,5 +1,3 @@
-package karkason;
-
 import javax.swing.*;
 import java.awt.*;
 

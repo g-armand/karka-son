@@ -1,14 +1,19 @@
-import karkason.*;
-import karkason.Board;
-import karkason.Cell;
+import java.util.Objects;
 
 public class MainTest {
 
     public static void main(String[] args) {
-        MainMenu menu = new MainMenu();
-//        Jeu jeu = new Jeu(2, 72);
-//        jeu.play("karkason");
+        if(args.length==0){
+            MainMenu menu = new MainMenu();
+        } else if (String.valueOf(args[0]).matches("commandlines")) {
+            Jeu jeu = new Jeu(2, 72);
+            jeu.play("domino");
+        } else if (String.valueOf(args[0]).matches("dynamicUI")){
+            MainMenu menu = new MainMenu();
+        }
     }
+
+
 
     public static void boardTest(){
         Tile t = new Tile();
@@ -31,12 +36,6 @@ public class MainTest {
         Tile[][] newTileMatrix = b.tiles;
         newTileMatrix = Board.trimBoard(newTileMatrix);
         System.out.println(Board.printableBoard(newTileMatrix, false));
-    }
-
-    public static void blyadstvo (){
-        System.out.println("Блядство");
-        Jeu game = new Jeu(2,20);
-        game.play("karkason");
     }
 
     public static void testTourner() {

@@ -1,5 +1,3 @@
-package karkason;
-
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
@@ -11,18 +9,17 @@ import java.util.*;
 
 public class GameFrame extends JFrame{
 
-    JPanel main_panel;
-    JPanel menu_panel;
-    LeftPanelGUI left_panel;
-    Background backgroundImage;
-    int playerTurnIndex;
-    Player[] playerList;
-    GridBoardPanel tilesGrid;
-    Board gameBoard;
+    protected JPanel main_panel;
+    private JPanel menu_panel;
+    protected LeftPanelGUI left_panel;
+    private Background backgroundImage;
+    protected int playerTurnIndex;
+    protected Player[] playerList;
+    protected GridBoardPanel tilesGrid;
+    protected Board gameBoard;
+    protected Tile[] globalBag;
+    protected int turns;
 
-    Tile[] globalBag;
-
-    int turns;
     public GameFrame(Player[] playerList) {
         this.turns = 0;
         this.playerTurnIndex = 0;
@@ -63,6 +60,7 @@ public class GameFrame extends JFrame{
 
         //needed for displaying scores on first turn
         playerTurnIndex=-1;
+        fillBag(10);
         updateScores(0,0);
 
         // MAIN -> FRAME
@@ -80,6 +78,10 @@ public class GameFrame extends JFrame{
         return new Board();
     }
 
+    public void fillBag(int bagSize){
+        //Null
+    }
+
     //meant to be overridden by karkassonFrame
     public LeftPanelGUI createLeftPanelGUI(){
         return new LeftPanelGUI();
@@ -88,9 +90,8 @@ public class GameFrame extends JFrame{
     public void updateScores(int x, int y) {
         JPanel scoresPanel = new JPanel();
         scoresPanel.setLayout(new GridLayout(playerList.length+1, 1, 0, 0));
-        scoresPanel.setLayout(new GridLayout(playerList.length+1, 1, 0, 0));
         for(Player player: playerList){
-            scoresPanel.add(new JLabel(player.name+" score: " +player.points +"\n"));
+            scoresPanel.add(new JLabel(player.getName()+" score: " +player.getPoints() +"\n"));
         }
         if(menu_panel.getComponentCount()>2){
             menu_panel.remove(2);
@@ -100,7 +101,7 @@ public class GameFrame extends JFrame{
         if(playerTurnIndex%playerList.length==0){
             playerTurnIndex=0;
         }
-        JLabel name = new JLabel("IT'S "+ this.playerList[playerTurnIndex].name+"'S TURN !");
+        JLabel name = new JLabel("IT'S "+ this.playerList[playerTurnIndex].getName()+"'S TURN !");
         scoresPanel.add(name);
         revalidate();
         endGame();
@@ -110,21 +111,21 @@ public class GameFrame extends JFrame{
         var ref = new Object() {
             int i;
         };
-        // FINISH GAME WHEN EVERY PLAYER HAS HAD allTiles number of TILES
-        int allTiles = 10;
 
         ArrayList<Integer> points = new ArrayList<>();
         Map<Integer, String> allpoints = new HashMap<>();
 
-        if(turns == playerList.length*allTiles) {
+        if(turns == globalBag.length-1) {
+            playerList = countPointsAtEndOfGame(playerList);
             for (ref.i = 0; ref.i < playerList.length; ref.i++) {
-                allpoints.put(playerList[ref.i].points, playerList[ref.i].name);
-                points.add(playerList[ref.i].points);
+                allpoints.put(playerList[ref.i].getPoints(), playerList[ref.i].getName());
+                points.add(playerList[ref.i].getPoints());
             }
 
             Integer winner = Collections.max(points);
             String winnerName = allpoints.get(winner);
-
+            turns ++;
+            updateScores(0,0);
             Object[] options = {"RESTART", "MAIN MENU"};
             int n = JOptionPane.showOptionDialog(this,
                     "GAME OVER. " + winnerName + " WINS!",
@@ -143,6 +144,11 @@ public class GameFrame extends JFrame{
                 this.dispose();
             }
         }
+    }
+
+    //meant to be overridden
+    public Player[] countPointsAtEndOfGame(Player[] playerList){
+        return playerList;
     }
 
     //meant to be overridden
@@ -177,10 +183,10 @@ public class GameFrame extends JFrame{
 
     public class LeftPanelGUI extends JPanel {
 
-        public Tile tileContainedOnLeftPanel;
-        public MenuButton add_button;
-        public JButton spinButton;
-        public int fullCapacity;
+        private Tile tileContainedOnLeftPanel;
+        protected MenuButton add_button;
+        protected JButton spinButton;
+        protected int fullCapacity;
         public LeftPanelGUI(){
             this.fullCapacity = 2;
             add_button = new MenuButton("PICK A TILE");
@@ -227,12 +233,12 @@ public class GameFrame extends JFrame{
 
         //updates scores for Domino Only, displays buttons for KarkasonLeftPanelGUI
         public void wannaPlaceMinion(int x, int y){
-            if(playerList[playerTurnIndex].isHuman){
+            if(playerList[playerTurnIndex].getIsHuman()){
                 if(this instanceof KarkasonFrame.KarkasonLeftPanelGUI){
                     ((KarkasonFrame.KarkasonLeftPanelGUI) this).displayButtons();
                 } else {
                     updateScores(x, y);
-                    while(!playerList[playerTurnIndex].isHuman){
+                    while(!playerList[playerTurnIndex].getIsHuman()){
                         int[] coords = playTurn();
                         updateScores(coords[0], coords[1]);
                     }
@@ -252,8 +258,8 @@ public class GameFrame extends JFrame{
 
     public class GridBoardPanel extends JPanel {
         private Tile[][] trimmedTilesGrid;
-        int intRows;
-        int intCols;
+        private int intRows;
+        private int intCols;
         public GridBoardPanel(Tile[][] tab) {
             this.trimmedTilesGrid = Board.trimBoard(tab);
             this.setBackground(new Color(0,0,0,0));
@@ -266,8 +272,8 @@ public class GameFrame extends JFrame{
                 }
             }
             setButtonsToValue(false);
-            //            this.setPreferredSize(new Dimension(600, 600));
-            this.setPreferredSize(new Dimension(100/getComponentCount()+700, 100/getComponentCount()+700));
+                        this.setPreferredSize(new Dimension(600, 600));
+//            this.setPreferredSize(new Dimension(100/getComponentCount()+700, 100/getComponentCount()+700));
             // need to be adjusted (causes conflict with tuile gui size)
         }
 
@@ -302,9 +308,9 @@ public class GameFrame extends JFrame{
 
     public class Tile_GUI extends JPanel implements MouseListener {
 
-        int x;
-        int y;
-        Tile tileContained;
+        private int x;
+        private int y;
+        private Tile tileContained;
 
         public Tile_GUI(Tile t, int x, int y){
             this.tileContained = t;
@@ -342,8 +348,6 @@ public class GameFrame extends JFrame{
                 int verticalOffset = Board.findBoundary(gameBoard.tiles, "north") -1;
                 int horizontalOffset = Board.findBoundary(gameBoard.tiles,  "west") -1;
                 if( gameBoard.addTile(left_panel.tileContainedOnLeftPanel, x+verticalOffset, y+horizontalOffset)){
-//                    verticalOffset = Board.findBoundary(gameBoard.tiles, "north") -1;
-//                    horizontalOffset = Board.findBoundary(gameBoard.tiles,  "west") -1;
                     left_panel.removeLastTile();
                     tilesGrid.updateTilesGrid();
                     left_panel.add_button.setEnabled(true);
@@ -373,7 +377,7 @@ public class GameFrame extends JFrame{
             int flattenedX;
             int flattenedY;
             public CellGUI(String text, int x, int y){
-                super("");
+                super();
                 setPreferredSize(new Dimension(5, 5));
                 setColor(text);
                 setOpaque(true);
@@ -394,7 +398,8 @@ public class GameFrame extends JFrame{
                     this.setBackground(new Color(77, 99, 210, 250));
                 }else if(text.matches("S")){
                     setBackground(new Color(64, 222, 204, 250));
-                }else if(text.matches("1")){
+                }
+                else if(text.matches("1")){
                     setText(text);
                     setBackground(new Color(197, 197, 203, 250));
                 } else if(text.matches("0")){
@@ -416,7 +421,7 @@ public class GameFrame extends JFrame{
                     this.addActionListener(e ->{
                         updateScores(flattenedX, flattenedY);
                         tilesGrid.setButtonsToValue(false);
-                        while(!playerList[playerTurnIndex].isHuman){
+                        while(!playerList[playerTurnIndex].getIsHuman()){
                             playTurn();
                             updateScores(0,0);
                         }

@@ -1,5 +1,3 @@
-package karkason;
-
 import java.util.Random;
 
 public class DominoTile extends Tile {

@@ -1,9 +1,3 @@
-package karkason;
-
-import karkason.Board;
-import karkason.Cell;
-import karkason.KarkasonTile;
-
 import java.util.HashSet;
 
 public class KarkasonBoard extends Board {
@@ -28,7 +22,7 @@ public class KarkasonBoard extends Board {
         System.out.println();
     }
 
-    public int getScoreOfTerritory(int x, int y){
+    public int countPoints(int x, int y){
         Cell[][] flattenedTiles = Board.flattenBoard(this.tiles);
         if(flattenedTiles[x][y].getChar()=='.'){
             System.out.println(flattenedTiles[x][y].getChar());
@@ -48,7 +42,7 @@ public class KarkasonBoard extends Board {
         return finalTilesCoordinates.size()*2;
     }
 
-    public HashSet<int[]> getTilesOfTerritory(int x, int y, Cell startCell, Cell[][] cellMatrix, HashSet<int[]> visitedCoordinates){
+    private HashSet<int[]> getTilesOfTerritory(int x, int y, Cell startCell, Cell[][] cellMatrix, HashSet<int[]> visitedCoordinates){
         HashSet<int[]> tilesCoordinates = new HashSet<>();
         int[] currentTileCoordinates = {x/5, y/5};
         visitedCoordinates.add(new int[]{x, y});
@@ -79,11 +73,6 @@ public class KarkasonBoard extends Board {
             && cellMatrix[x][y].getOwner() == startCell.getOwner()
             && Character.toLowerCase(cellMatrix[x][y].getChar()) ==startCell.getChar()){
             tilesCoordinates.add(currentTileCoordinates);
-//                tilesCoordinates.addAll(getTilesOfTerritory(x-1,y, startCell, cellMatrix));
-//                tilesCoordinates.addAll(getTilesOfTerritory(x+1,y, startCell, cellMatrix));
-//                tilesCoordinates.addAll(getTilesOfTerritory(x,y-1, startCell, cellMatrix));
-//                tilesCoordinates.addAll(getTilesOfTerritory(x,y+1, startCell, cellMatrix));
-
                 if(cellMatrix[x-1][y].getOwner()==startCell.getOwner()
                    && !containsArray(visitedCoordinates, new int[]{x-1, y})){
                     visitedCoordinates.add(new int[]{x-1, y});
@@ -118,7 +107,7 @@ public class KarkasonBoard extends Board {
         return false;
     }
 
-    public void updateTerritoriesRecursive(int x, int y, Cell startCell, Cell[][] cellMatrix){
+    private void updateTerritoriesRecursive(int x, int y, Cell startCell, Cell[][] cellMatrix){
         if(x>0
             && y>0
             && x<cellMatrix.length-1
@@ -141,8 +130,26 @@ public class KarkasonBoard extends Board {
         }
     }
 
-
-    public int countPoints(int x, int y){
-        return 0;
+    public void eraseTerritoriesRecursive(int x, int y, Cell startCell, Cell[][] cellMatrix, int owner){
+        if(x>0
+                && y>0
+                && x<cellMatrix.length-1
+                && y<cellMatrix[0].length-1){
+            if(cellMatrix[x][y].getChar() == startCell.getChar()){
+                cellMatrix[x][y].setOwner(666);
+                if(cellMatrix[x-1][y].getOwner()== owner){
+                    eraseTerritoriesRecursive(x-1,y, startCell, cellMatrix, owner);
+                }
+                if(cellMatrix[x+1][y].getOwner()== owner){
+                    eraseTerritoriesRecursive(x+1,y, startCell, cellMatrix, owner);
+                }
+                if(cellMatrix[x][y-1].getOwner()== owner){
+                    eraseTerritoriesRecursive(x,y-1, startCell, cellMatrix, owner);
+                }
+                if(cellMatrix[x][y+1].getOwner()== owner){
+                    eraseTerritoriesRecursive(x,y+1, startCell, cellMatrix, owner);
+                }
+            }
+        }
     }
 }

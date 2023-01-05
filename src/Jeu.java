@@ -1,19 +1,15 @@
-package karkason;
-
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Jeu {
 
-    int numberPlayers;
+    private int numberPlayers;
 
     // the number of tiles that user wants to have
-    int numberTiles = 10;
-    LinkedList<Tile> tileBag;
-
-    Board gameBoard;
-
+    private int numberTiles = 10;
+    private LinkedList<Tile> tileBag;
+    private Board gameBoard;
     private Player player1;
     private Player player2;
 
@@ -25,7 +21,7 @@ public class Jeu {
         this.player2 = new Player("b");
     }
 
-    public void fillBag(String game){
+    private void fillBag(String game){
         this.tileBag = new LinkedList<>();
         while(tileBag.size() < numberTiles){
             if(game.matches("domino")){
@@ -116,20 +112,20 @@ public class Jeu {
                         this.gameBoard.tiles[x/5][y/5].content[x%5][y%5].setOwner(1);
                         ((KarkasonBoard) this.gameBoard).updateTerritoriesForEach();
                         System.out.println("The board current state is:\n" + Board.printableBoard(Board.trimBoard(this.gameBoard.tiles), true));
-                        int pointsScored = ((KarkasonBoard) this.gameBoard).getScoreOfTerritory(x, y);
+                        int pointsScored = this.gameBoard.countPoints(x, y);
                         System.out.println("points scored: " + pointsScored);
                     }
                 } else if(game.matches("domino")){
                     //once the tile placed, we display board and update scores
                 System.out.println(Board.printableBoard(Board.trimBoard(this.gameBoard.tiles), false));
                 if(isPlayer1Turn){
-                    this.player1.points += ((DominoBoard) this.gameBoard).countPoints(x, y);
+                    this.player1.addPoints(((DominoBoard) this.gameBoard).countPoints(x, y));
                 } else {
-                    this.player2.points += ((DominoBoard) this.gameBoard).countPoints(x, y);
+                    this.player2.addPoints(((DominoBoard) this.gameBoard).countPoints(x, y));
                 }
                 isPlayer1Turn = !isPlayer1Turn;
-                System.out.println("Player 1 score = " + this.player1.points);
-                System.out.println("Player 2 score = " + this.player2.points);
+                System.out.println("Player 1 score = " + this.player1.getPoints());
+                System.out.println("Player 2 score = " + this.player2.getPoints());
 
                 }
 

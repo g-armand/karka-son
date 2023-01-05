@@ -1,4 +1,3 @@
-package karkason;
 import javax.xml.parsers.*;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
@@ -61,7 +60,7 @@ public class ScenariosManager {
             int counter = 0;
             for(Player player: playerList){
                 Attr PlayerAttribut = XML_Document.createAttribute("Player"+counter);
-                PlayerAttribut.setValue(player.name+","+String.valueOf(player.points));
+                PlayerAttribut.setValue(player.getName()+","+String.valueOf(player.getPoints()));
                 playersElement.setAttributeNode(PlayerAttribut);
                 counter++;
             }

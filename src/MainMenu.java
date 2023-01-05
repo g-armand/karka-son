@@ -1,14 +1,9 @@
-package karkason;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 
 
 public class MainMenu extends JFrame {
-
-    Player[] playerList = new Player[0];
-
 
     public MainMenu(){
 
