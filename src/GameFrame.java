@@ -60,7 +60,7 @@ public class GameFrame extends JFrame{
 
         //needed for displaying scores on first turn
         playerTurnIndex=-1;
-        fillBag(10);
+        fillBag(25);
         updateScores(0,0);
 
         // MAIN -> FRAME
