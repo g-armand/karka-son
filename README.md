@@ -6,7 +6,7 @@ To play the games you need to:
   - download the Game.tar file
   - locate yourself in the directory where you dowloaded the Game.tar file
   - run the following command to compile the code:
-      - **tar xvf Game && cd src && javac *.java **
+      - **tar xvf Game && cd src && javac *.java**
   - run the following command to start the game with the UI:
       - **java MainTest dynamicUI**
   - run the following command to start a domino game in command line:
