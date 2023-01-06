@@ -398,16 +398,12 @@ public class GameFrame extends JFrame{
                     this.setBackground(new Color(77, 99, 210, 250));
                 }else if(text.matches("S")){
                     setBackground(new Color(64, 222, 204, 250));
-                }
-                else if(text.matches("1")){
-                    setText(text);
-                    setBackground(new Color(197, 197, 203, 250));
-                } else if(text.matches("0")){
+                } else if(text.matches("\\d")){
                     setText(text);
                     setBackground(new Color(197, 197, 203, 250));
                 } else if(text.matches("\\s")){
                     setBackground(new Color(197, 197, 203, 250));
-                }else{
+                } else{
                     setText(text);
                 }
             }

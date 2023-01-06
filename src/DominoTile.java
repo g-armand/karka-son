@@ -7,11 +7,11 @@ public class DominoTile extends Tile {
             for(int j = 0; j<5; j++){
                 //north and south sides
                 if((i==0||i==4) && j<4 && j>0 ){
-                    this.content[i][j] = new Cell((char)(a.nextInt(2)+'0'));
+                    this.content[i][j] = new Cell((char)(a.nextInt(3)+'1'));
                 }
                 //west and east sides
                 else if((j==0 || j == 4) && i<4 && i>0 ){
-                    this.content[i][j] = new Cell((char)(a.nextInt(2)+'0'));
+                    this.content[i][j] = new Cell((char)(a.nextInt(3)+'1'));
                 } else {
                     this.content[i][j] = new Cell(' ');
                 }
