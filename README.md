@@ -11,4 +11,3 @@ To play the games you need to:
       - **java MainTest dynamicUI**
   - run the following command to start a domino game in command line:
       - **java MainTest commandlines**
-
